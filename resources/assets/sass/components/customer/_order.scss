@@ -1,0 +1,200 @@
+.orders{
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+  color: $dark;
+  h2 {
+    margin: 0 0 26px;
+    font-size: 26px;
+    text-transform: capitalize;
+  }
+
+  .order-content:last-child{
+    border: none;
+  }
+  .order-content{
+    margin: 0px;
+    border-bottom: 1px solid $gray;
+    padding:10px 0;
+    margin-bottom: 20px;
+
+    .left-side{
+      padding: 0px;
+      h4{
+        text-transform: capitalize;
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      p{
+        margin:0;
+
+        span{
+          font-weight:600;
+        }
+      }
+    }
+    .right-side{
+      text-align: right;
+      padding: 0px;
+
+      p{
+
+        span{
+          font-weight: 600;
+        }
+      }
+      a{
+        text-transform: uppercase;
+        background-color: $customer-custom-tab-nav-color;
+        color: $dark;
+        font-size: 15px;
+        padding: 10px 60px;
+        text-decoration: none;
+        -webkit-transition: 0.2s all ease-out ;
+        -moz-transition: 0.2s all ease-out ;
+        -ms-transition: 0.2s all ease-out ;
+        -o-transition: 0.2s all ease-out ;
+        transition: 0.2s all ease-out ;
+
+        &:hover{
+          color: $white;
+          background-color: $primary;
+        }
+      }
+    }
+  }
+
+  .shipping-address{
+    h4{
+      font-size: 18px;
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+    p{
+      text-transform: capitalize;
+    }
+  }
+  .total-amount {
+    background-color: $white;
+
+    p{
+      text-transform: capitalize;
+      margin:0;
+      float: left;
+    }
+    span{
+      float: right;
+    }
+
+    .subtotal, .shipping-cost, .order-discount, .total-cost{
+      overflow: hidden;
+      padding: 10px;
+    }
+    .total-cost{
+      background-color: #ddd;
+      margin-top: 10pt;
+    }
+  }
+
+  .order-detail{
+    padding: 20px;
+    background-color: $customer-custom-tab-nav-color;
+    margin-bottom: 20px;
+  }
+
+  .wishlist-content {
+    padding: 20px 0px;
+    border-bottom: 1px solid #ddd;
+
+    img{
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+    }
+    h4{
+      text-transform: capitalize;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    p{
+      margin: 0px;
+      font-size: 16px;
+      text-transform: capitalize;
+
+      span{
+        text-transform: uppercase;
+      }
+    }
+    h5{
+      margin: 0;
+      margin-top: 10px;
+      font-weight:600;
+      line-height: 21px;
+    }
+    .wishlist-footer {
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      justify-content: flex-end;
+
+      a{
+        font-size: 20px;
+        background-color: $white;
+        line-height: 50px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, .5);
+        border-radius: 100%;
+        height: 50px;
+        width: 50px;
+        display: block;
+        -webkit-transition: 0.4s all ease-out;
+        -moz-transition: 0.4s all ease-out;
+        -ms-transition: 0.4s all ease-out;
+        -o-transition: 0.4s all ease-out;
+        transition: 0.4s all ease-out;
+
+        i{
+          -webkit-transition: 0.4s all ease-out;
+          -moz-transition: 0.4s all ease-out;
+          -ms-transition: 0.4s all ease-out;
+          -o-transition: 0.4s all ease-out;
+          transition: 0.4s all ease-out;
+        }
+        &:hover{
+          background-color: $primary;
+
+          i{
+            color: $white;
+          }
+        }
+      }
+      .heart{
+        margin-left: 10px;
+      }
+    }
+    .favourite-price{
+      .product-price{
+        .regular-price{
+          font-size:11pt;
+        }
+      }
+    }
+  }
+
+}
+
+@media only screen and (max-width: 500px){
+  .orders {
+    .order-content {
+      .right-side{
+        text-align: left;
+
+        a{
+          display: block;
+          width:40%;
+          padding:6px;
+          float: right;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

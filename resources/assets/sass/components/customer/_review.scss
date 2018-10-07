@@ -1,0 +1,117 @@
+.reviews{
+  font-family: 'Roboto', sans-serif;
+  color: $dark;
+  letter-spacing: 1px;
+
+  h2 {
+    margin: 0 0 26px;
+    font-size: 26px;
+    text-transform: capitalize;
+  }
+  .customer-review:last-child{
+    border-bottom:none;
+  }
+
+    .customer-review{
+      padding: 20px 0px;
+      border-bottom: 1px solid #ddd;
+
+      p{
+        text-align: justify;
+        font-size: 15px;
+        margin: 0;
+      }
+      .review-date{
+        text-transform: capitalize;
+        color: #7b7b7b;
+
+        .text-review{
+          margin-right: 10px;
+        }
+
+        .customer-name{
+          text-transform: uppercase;
+          font-size: 11pt;
+          letter-spacing: 0px;
+          padding-right: 15px;
+        }
+
+        .fa{
+          font-size: 20px;
+        }
+        .checked{
+          color: $primary;
+        }
+      }
+      .star{
+        display: flex;
+        flex-direction: row;
+
+        p{
+          text-transform: capitalize;
+          font-weight: 600;
+          font-size: 11pt;
+          color: #212121;
+          padding-left: 15px;
+        }
+
+        .review-star-green{
+          display: inline-block;
+          color: #fff;
+          padding: 2px 4px 2px 4px;
+          border-radius: 3px;
+          font-weight: 500;
+          font-size: 12px;
+          vertical-align: middle;
+          background-color: #388e3c;
+        }
+        .review-star-orange{
+          display: inline-block;
+          color: #fff;
+          padding: 2px 4px 2px 4px;
+          border-radius: 3px;
+          font-weight: 500;
+          font-size: 12px;
+          vertical-align: middle;
+          background-color: #ff9f00;
+        }
+        .review-star-red{
+          display: inline-block;
+          color: #fff;
+          padding: 2px 4px 2px 4px;
+          border-radius: 3px;
+          font-weight: 500;
+          font-size: 12px;
+          vertical-align: middle;
+          background-color: #ff6161;
+        }
+      }
+
+      .review-text{
+        line-height: 1.4;
+        margin: 12px 0 9px 0;
+      }
+    }
+}
+
+.edit-review-section{
+  padding: 30px 0;
+
+  h2{
+    text-transform: capitalize;
+  }
+
+  .product-price {
+    text-align: right;
+
+    .regular-price{
+      font-size: 16px;
+    }
+
+    .special-price{
+      font-size: 18px;
+      padding-left: 10px;
+    }
+  }
+
+}

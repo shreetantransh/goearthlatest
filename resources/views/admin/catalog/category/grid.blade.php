@@ -1,0 +1,26 @@
+@extends('admin.layout.grid')
+
+@section('grid-title')
+    <h2>
+        CATEGORIES
+        <small>Product Categories</small>
+    </h2>
+@endsection
+
+@section('grid-actions')
+    <ul class="header-dropdown m-r--5">
+        <li class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="{{ route('admin.catalog.category.create') }}">Create New</a></li>
+            </ul>
+        </li>
+    </ul>
+@endsection
+
+@section('grid-content')
+    {!! $grid->render() !!}
+@endsection

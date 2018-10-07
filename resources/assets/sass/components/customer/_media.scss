@@ -1,0 +1,164 @@
+
+.category-product-grid, .slick-slider{
+  .product-item{
+
+    .product-top, .product-bottom{
+      visibility: hidden;
+    }
+
+    &:hover{
+      box-shadow: 0 0 4px 1px rgba(0,0,0,.5);
+
+      .product-top, .product-bottom{
+        visibility: visible;
+      }
+    }
+  }
+}
+
+
+
+@media screen and (min-width: 1441px) and (max-width: 1800px) {
+
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1280px) {
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+
+}
+
+@media screen and (max-width: 576px) {
+
+  h4, .h4 {
+    font-size: 1.2rem;
+  }
+
+  .home-featured-products {
+    margin-top: 4rem;
+  }
+
+  .home-products-tab {
+    ul {
+      li {
+        a {
+
+          height: 14vw;
+        }
+      }
+    }
+
+  }
+
+  .main-container {
+    .home-trending-products {
+      .over-content {
+        .section-inner-content {
+          .newsletter-subscription {
+
+            padding: 10px;
+          }
+        }
+      }
+
+      .trending-slider {
+        display: none;
+      }
+
+      .over-content {
+
+        .section-title {
+
+          display: none;
+        }
+
+        .trending-slider-pagination {
+          display: none;
+        }
+      }
+    }
+
+    .home-new-arrivals {
+
+      .promo-banner {
+        margin-bottom: 30px;
+      }
+    }
+
+    .main-footer {
+      ul {
+        padding-bottom: 20px;
+      }
+
+    }
+
+  }
+
+  .main-header {
+    .header-content {
+      background-color: #3c3c48;
+    }
+  }
+  .header-content {
+    .header-bottom {
+      .header-search {
+        .search-box {
+          padding: 1rem !important;
+        }
+      }
+    }
+  }
+
+  .main-container {
+    .header-content {
+      .logo {
+        img {
+          width: 200px;
+        }
+      }
+    }
+  }
+
+  .header-inner {
+    .man-header {
+      .logo, .search-field {
+        margin-bottom: 1rem;
+      }
+
+      .logo {
+        img {
+          width: 200px;
+        }
+      }
+
+      .main-navigation {
+        ul {
+          li {
+            a {
+              margin-right: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .main-navigation {
+
+    ul {
+      display: none;
+    }
+  }
+
+}

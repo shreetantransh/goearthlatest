@@ -1,0 +1,234 @@
+
+.home-products-tab {
+
+  ul {
+
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      a {
+        background: $primary;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 10vw;
+        height: 10vw;
+
+        @include transition(.1s background-color ease-in-out);
+
+        border-bottom: 1px solid darken($primary, 5%);
+        border-top: 1px solid lighten($primary, 5%);
+
+        img {
+          max-width: 30%;
+          @include transition(.1s max-width ease-in-out);
+        }
+
+        span {
+          color: $white;
+          text-transform: uppercase;
+          margin-top: 12px;
+          font-size: 1.5em;
+          text-align: center;
+          line-height: 1.2;
+        }
+
+        &:hover {
+          background: darken($primary, 5%);
+          text-decoration: none;
+
+          img {
+            max-width: 32%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.home-featured-products {
+
+  .home-products-tab {
+    margin-bottom: 9rem;
+  }
+
+  margin-top: $section-horizontal-space;
+
+  .feature-banner {
+
+    position: relative;
+
+    .banner-holder {
+      background: url('../../../images/featured-girl.png') no-repeat right bottom;
+      background-size: contain;
+      left: -5.4rem;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      top: 0;
+    }
+
+    .square-background {
+      background: $primary;
+      width: 19vw;
+      height: 43vw;
+      transform: rotate(27deg) translate(-70%, 28%);
+      position: relative;
+      z-index: -1;
+    }
+  }
+}
+
+.home-trending-products {
+
+  margin-bottom: $section-horizontal-space;
+
+  position: relative;
+
+  .trending-slider {
+    .item {
+      height: 68vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  .over-content {
+
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    bottom: 4rem;
+    z-index: 1000;
+
+    .section-inner-content {
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+
+      .section-title {
+
+        h2 {
+          color: $white;
+          display: inline-block;
+          padding: 1rem 2.5rem;
+          background: rgba(0, 0, 0, .4);
+          text-transform: uppercase;
+          font-weight: 400;
+        }
+      }
+
+      .trending-slider-pagination {
+
+        .slick-arrow {
+          top: 30%;
+          font-size: 2em;
+          color: white;
+          position: absolute;
+          background: transparent;
+          border: none;
+          z-index: 9999;
+        }
+        .slick-arrow:focus{
+          outline: 0;
+        }
+
+        .slick-prev {
+          right: -3%;
+        }
+        .slick-next {
+          left: 0;
+        }
+
+        img {
+          max-width: 100px;
+          cursor: pointer;
+          @include transition(.2s all ease-in-out);
+        }
+
+        .slick-current {
+
+        }
+      }
+
+      .newsletter-subscription {
+
+        position: absolute;
+        top: 0;
+        right: 12rem;
+        max-width: 60rem;
+        background: lighten($primary, 8%);
+        display: flex;
+        flex-direction: row;
+        transform: translate(0, calc(-50% - 3.5rem));
+
+        .newsletter-icon {
+          background: $secondary;
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          height: 8rem;
+          width: 10rem;
+          justify-content: center;
+          align-items: center;
+
+          i {
+            font-size: 4em;
+            color: $white;
+            line-height: 1;
+          }
+
+           span {
+             font-size: 1.4em;
+             color: $white;
+             line-height: 1;
+           }
+        }
+
+        .subscribe-form {
+          p {
+            margin-bottom: 0;
+            color: $white;
+            font-weight: 400;
+            font-size: 1.1em;
+          }
+
+          span {
+            color: $white
+          }
+        }
+      }
+    }
+  }
+}
+
+.home-category-products {
+  margin-bottom: $section-horizontal-space;
+}
+
+.home-new-arrivals {
+
+  margin-bottom: $section-horizontal-space;
+
+  .section-title {
+
+    margin-bottom: 3rem;
+
+    h2 {
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+  }
+}
+

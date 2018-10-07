@@ -1,0 +1,43 @@
+/* breadcrumb */
+.category-action {
+
+  .toolbar-top {
+    padding: 1em 0rem;
+    .sort-options {
+      label {
+        margin-right: 0.2rem;
+      }
+      select {
+        border: 1px solid $product-border-color;
+        height: 2.2rem;
+      }
+    }
+    .view-mode {
+      margin-top: 0.5rem;
+      a {
+        display: inline-block;
+        margin-left: 1rem;
+        color: $gray-800;
+        i {
+          font-size: 1.6em;
+          &:active {
+            border-bottom: 2px solid $primary;
+            opacity: 0.8;
+          }
+        }
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+/* category-product-grid */
+.category-product-grid {
+
+
+}
+
+

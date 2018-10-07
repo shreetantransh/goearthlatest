@@ -1,0 +1,1 @@
+export const CUSTOMER_LOGIN_POPUP_URL = APP_URL + '/customer/auth/account';
