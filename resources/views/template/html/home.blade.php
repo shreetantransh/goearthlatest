@@ -91,15 +91,15 @@
         <div class="block-content">
             <div class="container">
                 <!-- Tab Navigation -->
-                <div class="tab-nav">
+                <div class="tab-nav" id="home_links">
 
                     @if($categories->count())
 
                     <ul>
-                        @foreach($categories as $category)
-                        <li class="active">
-                            <a data-toggle="tab" href="#all-products" id="home-category-anchor"  data-content="{{ $category->slug }}">
-                                <img src="img/product/product-category-0.png" alt="All Product">
+                        @foreach($categories as $key => $category)
+                        <li data-toggle="tab" class="{{ $key == 0 ? 'active' : '' }}">
+                            <a data-toggle="tab" href="#{{ $category->slug }}" id="home-category-anchor"  data-content="{{ $category->slug }}">
+                                <img src="img/product/product-category-0.png" alt="{{ $category->slug }}">
                                 <span>{{ $category->getName() }}</span>
                             </a>
                         </li>
@@ -112,7 +112,7 @@
                 <!-- Tab Content -->
                 <div class="tab-content">
                     <!-- All Products -->
-                    <div role="tabpanel" class="tab-pane fade in active" id="home-category-container">
+                    <div role="tabpanel" class="" id="home-category-container">
 
                     </div>
 

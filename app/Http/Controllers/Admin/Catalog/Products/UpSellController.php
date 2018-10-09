@@ -136,7 +136,7 @@ class UpSellController extends AdminController
 
 
 
-        $product->upsells()->syncWithoutDetaching($request->input('grid_items'));
+        $product->upsells()->sync($request->input('grid_items'));
 
         return redirect()->back()->with($this->setMessage('Upsells Product has been successfully updated.', self::MESSAGE_SUCCESS));
     }

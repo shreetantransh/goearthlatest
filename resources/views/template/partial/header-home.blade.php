@@ -8,126 +8,25 @@
                     <!-- Main Menu -->
                     <div id="main-menu">
                         <ul class="menu">
-                            <li class="dropdown item home-page has-sub active">
-                                <a href="index.html" title="Homepage">Home</a>
-                                <div class="dropdown-menu">
-                                    <ul>
-                                        <li><a href="index.html" title="Homepage 1">Homepage 1</a></li>
-                                        <li><a href="home-2.html" title="Homepage 2">Homepage 2</a></li>
-                                        <li><a href="home-3.html" title="Homepage 3">Homepage 3</a></li>
-                                        <li><a href="home-4.html" title="Homepage 4">Homepage 4</a></li>
-                                        <li><a href="home-5.html" title="Homepage 5">Homepage 5</a></li>
-                                    </ul>
-                                </div>
-                            </li>
 
                             <li class="dropdown item  has-sub">
-                                <a href="product-grid-left-sidebar.html" title="Product">Product</a>
+                                <a href="product-grid-left-sidebar.html" title="Product">Category</a>
                                 <div class="dropdown-menu">
                                     <ul>
-                                        <li class="has-image">
-                                            <img src="img/product/product-category-1.png" alt="Product Category Image">
-                                            <a href="product-grid-left-sidebar.html" title="Vegetables">Vegetables</a>
-                                        </li>
-                                        <li class="has-image">
-                                            <img src="img/product/product-category-2.png" alt="Product Category Image">
-                                            <a href="product-grid-left-sidebar.html" title="Fruits">Fruits</a>
-                                        </li>
-                                        <li class="has-image">
-                                            <img src="img/product/product-category-3.png" alt="Product Category Image">
-                                            <a href="product-grid-left-sidebar.html" title="Bread">Bread</a>
-                                        </li>
-                                        <li class="has-image">
-                                            <img src="img/product/product-category-4.png" alt="Product Category Image">
-                                            <a href="product-grid-left-sidebar.html" title="Juices">Juices</a>
-                                        </li>
-                                        <li class="has-image">
-                                            <img src="img/product/product-category-5.png" alt="Product Category Image">
-                                            <a href="product-grid-left-sidebar.html" title="Tea and coffee">Tea and
-                                                coffee</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="dropdown item  has-sub">
-                                <a href="#" title="Page">Page</a>
-                                <div class="dropdown-menu">
-                                    <ul>
-                                        <li class="dropdown-submenu">
-                                            <a href="product-grid-left-sidebar.html" title="Product List">Product
-                                                List</a>
-                                            <div class="dropdown-menu level2">
-                                                <ul>
-                                                    <li><a href="product-grid-left-sidebar.html"
-                                                           title="Product Grid - Left Sidebar">Product Grid - Left
-                                                            Sidebar</a></li>
-                                                    <li><a href="product-grid-right-sidebar.html"
-                                                           title="Product Grid - Right Sidebar">Product Grid - Right
-                                                            Sidebar</a></li>
-                                                    <li><a href="product-grid-full-width.html"
-                                                           title="Product Grid - Full Width">Product Grid - Full
-                                                            Width</a></li>
-                                                    <li><a href="product-list-left-sidebar.html"
-                                                           title="Product List - Left Sidebar">Product List - Left
-                                                            Sidebar</a></li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="dropdown-submenu">
-                                            <a href="product-detail-left-sidebar.html" title="Product List">Product
-                                                Detail</a>
-                                            <div class="dropdown-menu level2">
-                                                <ul>
-                                                    <li><a href="product-detail-left-sidebar.html"
-                                                           title="Product Detail - Left Sidebar">Product Detail - Left
-                                                            Sidebar</a></li>
-                                                    <li><a href="product-detail-full-width-1.html"
-                                                           title="Product List - Full Width 1">Product Detail - Full
-                                                            Width 1</a></li>
-                                                    <li><a href="product-detail-full-width-2.html"
-                                                           title="Product List - Full Width 2">Product Detail - Full
-                                                            Width 2</a></li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a href="product-cart.html" title="Cart">Cart</a>
-                                        </li>
-                                        <li>
-                                            <a href="product-checkout.html" title="Checkout">Checkout</a>
-                                        </li>
-                                        <li class="dropdown-submenu">
-                                            <a href="#" title="User">User</a>
-                                            <div class="dropdown-menu level2">
-                                                <ul>
-                                                    <li><a href="user-login.html" title="Login">Login</a></li>
-                                                    <li><a href="user-register.html" title="Register">Register</a></li>
-                                                    <li><a href="#" title="My Account">My Account</a></li>
-                                                    <li><a href="#" title="My Wishlists">My Wishlists</a></li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a href="page-404.html" title="Page 404">Page 404</a>
-                                        </li>
+                                        @foreach($categories as $category)
+                                            <li class="has-image">
+                                                <img src="img/product/product-category-5.png"
+                                                     alt="Product Category Image">
+                                                <a href="{{ $category->getUrl() }}"
+                                                   title="Tea and coffee">{{ $category->getName() }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </li>
 
                             <li class="dropdown item  has-sub">
                                 <a href="blog-list-left-sidebar-1.html">Blog</a>
-                                <div class="dropdown-menu">
-                                    <ul class="has-sub">
-                                        <li><a href="blog-list-left-sidebar-1.html" title="Blog List - Left Sidebar 1">Blog
-                                                List - Left Sidebar 1</a></li>
-                                        <li><a href="blog-list-left-sidebar-2.html" title="Blog List - Left Sidebar 2">Blog
-                                                List - Left Sidebar 2</a></li>
-                                        <li><a href="blog-grid-full-width.html" title="Blog Grid - Full Width">Blog Grid
-                                                - Full Width</a></li>
-                                        <li><a href="blog-detail.html" title="Blog Detail">Blog Detail</a></li>
-                                    </ul>
-                                </div>
                             </li>
 
                             <li class="item about">
@@ -145,7 +44,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-12 header-center justify-content-center">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="home-4.html">
+                        <a href="{{ url('/') }}">
                             <img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo">
                         </a>
                     </div>
@@ -274,9 +173,7 @@
 
                                     <!-- Currency -->
                                     <div class="currency switcher">
-                                        <a href="#" title="USD" class="active">USD</a>
-                                        <a href="#" title="EUR">EUR</a>
-                                        <a href="#" title="GBP">GBP</a>
+                                        <a href="#" INR="USD" class="active">INR</a>
                                     </div>
                                 </div>
                         </div>

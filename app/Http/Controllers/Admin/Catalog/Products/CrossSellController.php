@@ -136,7 +136,7 @@ class CrossSellController extends AdminController
 
 
 
-        $product->crossSell()->syncWithoutDetaching($request->input('grid_items'));
+        $product->crossSell()->sync($request->input('grid_items'));
 
         return redirect()->back()->with($this->setMessage('Cross Sell Product has been successfully updated.', self::MESSAGE_SUCCESS));
     }

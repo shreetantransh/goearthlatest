@@ -14,11 +14,6 @@
 
             <div class="pull-right">
                 <button id="save" type="submit" class="btn btn-primary btn-lg waves-effect">SAVE</button>
-                @if($product->id)
-                    <button data-delete-url="" id="delete" type="button" class="btn btn-danger btn-lg waves-effect">
-                        DELETE
-                    </button>
-                @endif
             </div>
         </div>
 
@@ -29,9 +24,7 @@
                     <a href="{{ route('admin.catalog.product.tab.product', $product->id) }}" aria-expanded="true">Product
                         Information</a>
                 </li>
-                <li role="presentation" class="">
-                    <a href="#profile" aria-expanded="false">Categories</a>
-                </li>
+
                 <li role="presentation"
                     class="{{ request()->route()->getName() == 'admin.catalog.product.tab.related' ? 'active' : '' }}">
                     <a id="product-tab" href="javascript:void(0)" data-content="{{ route('admin.catalog.product.tab.related', $product->id) }}"  aria-expanded="false">Related
@@ -56,6 +49,14 @@
                 @yield('tab-content')
             </div>
         </div>
+
+        <div class="header clearfix">
+
+            <div class="pull-right">
+                <button id="save" type="submit" class="btn btn-primary btn-lg waves-effect">SAVE</button>
+            </div>
+        </div>
+
     </div>
 
     {!! Form::close() !!}

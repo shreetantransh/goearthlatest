@@ -15,7 +15,7 @@
                     {!! Form::hidden('image['.$key.'][image]', $image->id) !!}
                     <tr>
                         <td>
-                            <img src="{{ $image->getUrl() }}"/>
+                            <img src="{{ $image->getUrl(\App\Models\ProductImage::IMAGE_SMALL) }}"/>
                         </td>
                         <td>
                             <div class="form-group">
