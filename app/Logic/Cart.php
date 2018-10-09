@@ -161,4 +161,10 @@ class Cart
         return ['status' => false, 'message' => 'Voucher successfully removed.'];
     }
 
+
+    //function for get cart items in dropdown in header bar
+    public function getCartItems(){
+        return $this->getCart()->items()->with('product')->get();
+    }
+
 }

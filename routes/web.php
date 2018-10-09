@@ -56,10 +56,20 @@ Route::group(['namespace' => 'Frontend'], function () {
 
     Route::get('/', 'HomeController')->name('home');
 
-    Route::get('get-checkout', 'Checkout\CheckoutController@getCheckout')->name('checkout');
-    Route::post('postAddress', 'Checkout\CheckoutController@postAddress')->name('postAddress');
+    //checkout routes
+    Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
+        //route for cart when user click on cart icon in header
+        Route::get('cart', 'Checkout\CheckoutController@getCart')->name('cart');
+        Route::get('get-checkout', 'Checkout\CheckoutController@getCheckout')->name('get-checkout');
+        Route::post('saveAddress', 'Checkout\CheckoutController@postAddress')->name('saveAddress');
+        Route::post('postCheckout', 'Checkout\CheckoutController@postCheckout')->name('postCheckout');
+        Route::get('thank-you', 'Checkout\CheckoutController@getThankyou')->name('thank-you');
+        Route::get('confirm-details', 'Checkout\CheckoutController@getConfirmDetails')->name('confirm-details');
+    });
 
-    Route::post('postCheckout', 'Checkout\CheckoutController@postCheckout')->name('postCheckout');
+
+
+
 
     Route::group(['prefix' => 'product', 'namespace' => 'Products', 'as' => 'product.'], function () {
         Route::get('/', 'IndexController')->name('index');

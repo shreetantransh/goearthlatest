@@ -637,25 +637,32 @@
 			}, 20 * 1000);
 		}
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+		//default open first collapse
+        $('#collapseOne').collapse('show');
+
+        $('[href="#collapseTwo"]').prop('disabled',true);
+        $('[href="#collapseThree"]').prop('disabled',true);
 
 
-
+        //select delivery address from multiple address
+        $('.deliver_here').on('click', function(event){
+        	$("input[name='delivery_address_id']").val($(this).attr('data-address-id'));
+        })
 
         $('#proceed_to_payment').on('click', function(event){
+            $('[href="#collapseThree"]').prop('disabled',false);
             $('#collapseTwo').collapse('hide');
             $('#collapseThree').collapse('show');
         })
 
         $('#save_address').on('click', function(event){
+            $('[href="#collapseTwo"]').prop('disabled',false);
             $('#collapseOne').collapse('hide');
             $('#collapseTwo').collapse('show');
+
         })
         $('.deliver_here').on('click', function(event){
+            $('[href="#collapseTwo"]').prop('disabled',false);
             $('#collapseOne').collapse('hide');
             $('#collapseTwo').collapse('show');
         })
@@ -663,37 +670,38 @@
 
 
 
+        // Ajax for our form
+        // $('.btn-save-address').on('click', function(event){
 		//
-        // // Ajax for our form
-        // $('form.formshipping').on('submit', function(event){
+        // 	alert('ok');
 		//
         //    event.preventDefault();
 		//
-        //     const formData = {
+		// 	const formData = {
         //         state_id     : $('#state').val(),
         //         city_id      : $('#city').val(),
         //         first_name   : $('#fname').val(),
         //         last_name    : $('#lname').val(),
-		// 		mobile 	: $('#mobile').val(),
+		// 		mobile 		: $('#mobile').val(),
         //         street     : $('#street').val(),
         //         landmark     : $('#landmark').val(),
         //         pincode     : $('#pincode').val(),
         //         address  : $('textarea[name=address]').val(),
-		// 		is_default : $("input[type='checkbox']").val()
+		// 		is_default : $("input[type='checkbox']").val(),
+		// 		_token: $('meta[name="csrf-token"]').attr('content')
         //     }
 		//
         //     console.log(formData);
 		//
         //     $.ajax({
         //         type     : "POST",
-        //         // url      : $(this).attr('action') + '/store',
-        //         url      : $(this).attr('action'),
+        //         url      : 'postAddress',
         //         data     : formData,
         //         cache    : false,
 		//
         //         success  : function(data) {
 		//
-        //             if(data.status ==0)
+        //             if(data.status == 0)
         //             {
 		// 					$.each(data.error, function(key, value){
 		// 						$('.alert-danger').show();

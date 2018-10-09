@@ -151,6 +151,60 @@
                                 <span class="cart-count" id="items-in-cart-count">{{ $_cart->itemsCount() }}</span>
                             </a>
                         </div>
+
+                        <div class="dropdown-content">
+                            <div class="cart-content">
+                                <table>
+                                    <tbody>
+                                    @if($_cart->getCartItems()->count())
+                                        @foreach ($_cart->getCartItems() as $key => $cartItem)
+                                            <tr>
+                                                <td class="product-image">
+                                                    <a href="javascript:void(0)">
+                                                        <img src="{{ $cartItem->product->getBaseImage(\App\Models\ProductImage::VERY_SMALL) }}" alt="Product">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <div class="product-name">
+                                                        <a href="javascript:void(0)">{{ $cartItem->product->getName() }}</a>
+                                                    </div>
+                                                    <div>
+                                                        {{ $cartItem->qty }} x <span class="product-price">{!! $cartItem->product->getFormattedFinalPrice() !!}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="sub_total">
+                                                        {!! $cartItem->getProductFormattedTotal() !!}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                        <tr class="total">
+                                            <td>Grand Total:</td>
+                                            <td colspan="2">{!! $_cart->grandTotal(true) !!}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="cart-button">
+                                                    <a class="btn btn-primary" href="{{ route('checkout.cart') }}" title="View Cart">View Cart</a>
+                                                    <a class="btn btn-primary" href="{{ route('checkout.get-checkout') }}" title="Checkout">Checkout</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        <div class="no-cart text-center">
+                                            <h3>Shopping cart</h3>
+                                            <p>Your shopping cart is empty.</p>
+                                            <a class="btn btn-primary" href="{{ url('') }}">Continue Shopping</a>
+                                        </div>
+                                    @endif
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
                     </div>
 
                     <!-- My Account -->

@@ -66,8 +66,8 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="buttons">
-                                <a href="{{ route('home') }}" class="btn-primary btn">Continue shopping</a>
-                                <a href="{{ route('checkout') }}" class="btn-primary btn pull-right" >Proceed to Checkout </a>
+                                <a href="{{ route('checkout.cart') }}" class="btn-primary btn">View Cart</a>
+                                <a href="{{ route('checkout.get-checkout') }}" class="btn-primary btn pull-right" >Proceed to Checkout </a>
                             </div>
                         </div>
 
@@ -77,10 +77,10 @@
 
         @else
 
-            <div class="no-cart">
+            <div class="no-cart text-center">
                 <h3>Shopping cart</h3>
                 <p>Your shopping cart is empty.</p>
-                <a href="{{ url('') }}">Continue Shopping</a>
+                <a class="btn btn-primary" href="{{ url('') }}">Continue Shopping</a>
             </div>
 
         @endif

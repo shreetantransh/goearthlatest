@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 ">
-                        <div class="form-group check-group">
+                        <div class="form-group check-group-checkout">
                             <label for="Gender" class="control-label">Gender</label>
                             <div class="check-row">
                                 <div class="form-check-gender">

@@ -868,7 +868,7 @@ input {
     margin-bottom: 8px;
     font-weight: 700;
 	font-family: "Playfair Display", serif;
-	width: 208px;
+	width: 202px;
 }
 .block-cart .dropdown-content .cart-content .product-name a {
 	color: #444;
@@ -4971,9 +4971,7 @@ div#checkout-main-content {
     margin: 10% 5% 10% 5%;
 }
 
-#confirm-address {
-    padding: 0 20px 40px;
-}
+
 
 .clearfix {
     clear: both;
@@ -5024,7 +5022,7 @@ div#checkout-main-content {
 }
 
 #checkout-shipping #confirm-address .complete-aaddress {
-    height: 215px;
+    height: 240px;
 }
 
 #checkout-shipping #confirm-address .address-type-wrapper {
@@ -5150,4 +5148,25 @@ div#checkout-main-content {
     margin-right: 7px;
 }
 
+h3.thanks-title {
+    font-size: 18px;
+    margin: 15px 0px 15px 0px;
+    font-weight: 500;
+}
+
+p.error {
+    color: red;
+    font-size: 11px;
+    padding-top: 5px;
+    display: inline-block;
+}
+
+.form-check-gender.male {
+    float: left;
+    margin-right: 15px;
+}
+
+input.payment_mode_radio {
+    margin-top: 20px!important;
+}
 
