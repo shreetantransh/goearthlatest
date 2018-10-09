@@ -26,8 +26,16 @@ class IndexController extends FrontendController
             'name',
         ])->limit(20)->get();
 
+        $crossSells = $product->crossSell()->setRelationship()->addAttributeToSelect([
+            'name',
+        ])->limit(20)->get();
+
+        $upSells = $product->upsells()->setRelationship()->addAttributeToSelect([
+            'name',
+        ])->limit(20)->get();
+
         $categories = Category::active()->addToMenu()->get();
 
-        return view('catalog.product.index', compact('product', 'relatedProducts', 'category', 'categories'));
+        return view('catalog.product.index', compact('product', 'relatedProducts', 'category', 'categories', 'crossSells', 'upSells'));
     }
 }

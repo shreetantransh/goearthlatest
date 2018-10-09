@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
                 Route::post('configurable-product', 'ConfigurableController@save');
             });
 
-            Route::post('upload-image', 'EditController@uploadImage')->name('image_upload');
+            Route::post('upload-image/{product}', 'EditController@uploadImage')->name('image_upload');
         });
 
         Route::group(['prefix' => 'category', 'as' => 'category.', 'namespace' => 'Category'], function () {

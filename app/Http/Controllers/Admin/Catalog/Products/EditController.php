@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Catalog\Products;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -10,7 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 
-class EditController extends Controller
+class EditController extends AdminController
 {
     public function showForm(Product $product)
     {
@@ -86,7 +87,7 @@ class EditController extends Controller
         return $validate;
     }
 
-    public function uploadImage(Request $request)
+    public function uploadImage(Product $product, Request $request)
     {
         $validation = Validator::make($request->all(), [
             'file' => 'required|image|max:5000'
@@ -98,7 +99,7 @@ class EditController extends Controller
 
         $imagePath = $request->file('file')->store(ProductImage::UPLOAD_DIR);
 
-        $productImage = ProductImage::create([
+        $productImage = $product->images()->create([
             'label' => $request->file('file')->getClientOriginalName(),
             'image' => $imagePath,
             'sequence' => 0

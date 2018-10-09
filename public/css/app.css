@@ -527,7 +527,7 @@ body.compensate-for-scrollbar {
   backface-visibility: hidden;
   display: none;
   height: 100%;
-  left: 25%;
+  left: 0;
   outline: none;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -540,7 +540,7 @@ body.compensate-for-scrollbar {
   transition-property: transform,opacity;
   transition-property: transform,opacity,-webkit-transform;
   white-space: normal;
-  width: 50%;
+  width: 100%;
   z-index: 99994;
 }
 

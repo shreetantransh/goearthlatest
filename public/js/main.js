@@ -718,3 +718,9 @@
 	});
 })()
 
+jQuery(document).ready(function () {
+	jQuery("a#home-category-anchor").on('click', function () {
+		jQuery("#home-category-anchor").closest('#home_links').find('li').removeClass('active');
+		jQuery(this).closest("li").addClass('active');
+    });
+});

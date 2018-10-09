@@ -20,7 +20,7 @@ class ProductImage extends Model
     const IMAGE_RATIO = .6;
 
     protected $fillable = [
-        'label', 'image', 'sequence'
+        'label', 'image', 'sequence', 'product_id'
     ];
 
     public static function boot()

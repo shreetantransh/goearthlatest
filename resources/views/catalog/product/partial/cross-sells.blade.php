@@ -1,12 +1,12 @@
-@if($relatedProducts->count())
+@if($crossSells->count())
     <div class="products-block related-products">
         <div class="block-title">
-            <h2 class="title">Related <span>Products</span></h2>
+            <h2 class="title">Cross <span>Sells</span></h2>
         </div>
 
         <div class="block-content">
             <div class="products owl-theme owl-carousel">
-                @foreach ($relatedProducts as $product)
+                @foreach ($crossSells as $product)
                     @include('catalog.category.partial.product')
                 @endforeach
             </div>

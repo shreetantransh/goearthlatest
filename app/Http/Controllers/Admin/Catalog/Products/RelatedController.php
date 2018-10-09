@@ -136,7 +136,7 @@ class RelatedController extends AdminController
 
 
 
-        $product->related()->syncWithoutDetaching($request->input('grid_items'));
+        $product->related()->sync($request->input('grid_items'));
 
         return redirect()->back()->with($this->setMessage('Related Product has been successfully updated.', self::MESSAGE_SUCCESS));
     }

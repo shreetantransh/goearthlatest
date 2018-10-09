@@ -1,15 +1,13 @@
-<div class="products owl-theme owl-carousel ">
+<div class="products owl-theme owl-carousel">
     @foreach ($productCollection as  $products)
-        <div class="product-group">
-            @foreach ($products as  $product)
-
-                @include('catalog.category.partial.product')
-
-            @endforeach
-        </div>
+       <div id="{{ $category->slug }}">
+               <div class="product-group">
+                       @foreach ($products as  $product)
+                               @include('catalog.category.partial.product')
+                       @endforeach
+               </div>
+       </div>
     @endforeach
-
-
 </div>
 
 <script>

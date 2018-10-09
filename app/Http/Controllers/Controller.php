@@ -9,6 +9,19 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
-       use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    const MESSAGE_SUCCESS = 1;
+    const MESSAGE_ERROR = 2;
+
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function setMessage($message, $type)
+    {
+        return [
+            'alert' => [
+                'type' => $type,
+                'msg' => $message
+            ]
+        ];
+    }
 
 }

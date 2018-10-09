@@ -30,7 +30,7 @@ class CheckoutController extends CustomerController
         }
 
         //get all states
-        $states =State::all()->where('status','=',1);
+        $states = State::all()->where('status','=',1);
 
         //if logged in then get address of that customer
         $addresses = $this->getCustomer()->addresses()->with('city', 'state')->get();
@@ -55,7 +55,7 @@ class CheckoutController extends CustomerController
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status'=>0,'error'=> $validator->errors()]);
+            return response()->json(['status'=> 0, 'error'=> $validator->errors()]);
 
         }
 
@@ -77,7 +77,6 @@ class CheckoutController extends CustomerController
             'landmark' => 'required|max:255',
             'pincode' => 'required|integer',
             'address' => 'required|string|min:2',
-
         ]);
 
         if ($validator->fails()) {
@@ -142,10 +141,6 @@ class CheckoutController extends CustomerController
         if($request->input('payment_method') == 'COD'){
 
         }
-
-
-
-
 
     }
 

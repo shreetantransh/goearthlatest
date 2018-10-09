@@ -22,11 +22,11 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route('admin.catalog.product.image_upload') }}',
+            url: '{{ route('admin.catalog.product.image_upload', $product->id) }}',
             init: function () {
                 this.on("success", function (request) {
                     var image = JSON.parse(request.xhr.response);
-                    $('div#uploaded-files').append('<input type="hidden" value="' + image.id + '" name="images[]" />');
+                    //$('div#uploaded-files').append('<input type="hidden" value="' + image.id + '" name="images[]" />');
                 });
             }
         };
