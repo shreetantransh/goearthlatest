@@ -5161,6 +5161,13 @@ p.error {
     display: inline-block;
 }
 
+p.invalid-feedback {
+    color: red;
+    font-size: 11px;
+    padding-top: 5px;
+    display: inline-block;
+}
+
 .form-check-gender.male {
     float: left;
     margin-right: 15px;
@@ -5170,3 +5177,6 @@ input.payment_mode_radio {
     margin-top: 20px!important;
 }
 
+.form-control.is-invalid{
+    border: 1px solid red !important;
+}

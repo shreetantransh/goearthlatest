@@ -4,15 +4,12 @@
         @if($cartItems->count())
             <h3 class="text-center">Shopping Cart</h3>
             <div class="mycart">
-
                 <div class="container">
                     <div class="row ">
                         <div class="col-sm-12">
-
-
                             <form method="post" enctype="multipart/form-data">
                                 <div class="col-md-12 col-xs-6 col-sm-6 table-responsive">
-                                    <table class="table listproducts">
+                                    <table class="table table-bordered listproducts">
                                         <thead>
                                         <tr>
                                             <td class="text-left">Items</td>

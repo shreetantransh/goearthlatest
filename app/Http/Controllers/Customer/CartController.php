@@ -38,7 +38,6 @@ class CartController extends CustomerController
             }
         }
 
-
         $cartItems = $this->cart->getCart()
             ->items()
             ->with('product')

@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderLog;
 use App\Models\OrderProduct;
+use App\Models\ProductStock;
 use App\Models\State;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
@@ -19,12 +20,13 @@ use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends CustomerController
 {
+    //load checkout page
     public  function  getCheckout()
     {
         //get items form cart
         $cartItems = $this->cart->getCart()->items()->with('product')->get();
 
-       //if cart blank then redirect to cart page instead checkout
+        //if cart blank then redirect to cart page instead checkout
         if(!$cartItems->count()){
             return view('customer.cart.index',compact('cartItems'));
         }
@@ -41,7 +43,7 @@ class CheckoutController extends CustomerController
         //redirect to checkout page with cartitems
         return view('customer.checkout.index',compact('cartItems','states','addresses'));
     }
-
+    //save address from checkout
     public function postAddress(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -82,6 +84,23 @@ class CheckoutController extends CustomerController
         return redirect('checkout/get-checkout');
     }
 
+    //save guest details
+    public function postSaveGuest(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'mobile' => 'required|numeric',
+            'email' => 'required|email|unique:customers',
+            'password'=>'required|min:8'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+    }
+    //post checkout form
     public function  postCheckout(Request $request)
     {
         //get items form cart and store in order products table
@@ -100,7 +119,7 @@ class CheckoutController extends CustomerController
         $orderObj->save();
 
         //update order id with prefix 1000
-        $orderObj->order_id=1000 + $orderObj->id;
+        $orderObj->order_id = 1000 + $orderObj->id;
         $orderObj->save();
 
         //get last order id
@@ -150,6 +169,19 @@ class CheckoutController extends CustomerController
                 $orderProductObj->quantity=$item->qty;
                 $orderProductObj->sub_total=$item->getProductFormattedTotal();
                 $orderProductObj->save();
+
+                //update stock
+                $updateStockObj = ProductStock::where('product_id','=',$item->product->id)->first();
+                if($updateStockObj->manage_stock == 1)
+                {
+                    if($updateStockObj->quantity >0){
+                        $updateStockObj->quantity -= 1; //update quantity decrement by 1
+                    }
+                    else{
+                      $updateStockObj->stock_availability = 0;
+                    }
+                    $updateStockObj->save();
+                }
             }
 
             //make cart empty
@@ -166,8 +198,6 @@ class CheckoutController extends CustomerController
             return redirect('checkout/confirm-details');
         }
     }
-
-
     //function for thankyou page after checkout by COD
     public  function getThankYou()
     {
@@ -180,8 +210,7 @@ class CheckoutController extends CustomerController
         $order = Order::where('id','=',$orderId)->with('customer')->first();
         return view('customer.checkout.thankyou',compact('order'));
     }
-
-    //fucntion for confirm details after checkout By CCavenue
+    //function for confirm details after checkout By CCavenue
     public function getConfirmDetails()
     {
         $orderId = Session::get('orderId');
@@ -192,11 +221,69 @@ class CheckoutController extends CustomerController
         $order = Order::where('id','=',$orderId)->with('customer')->first();
         return view('customer.checkout.confirm_details',compact('order'));
     }
-
-
-    // this fucntion  is used when user click on cart icon in header bar
+    // this function  is used when user click on cart icon in header bar
     public function  getCart(){
         $cartItems = $this->cart->getCart()->items()->with('product')->get();
         return view('customer.checkout.cart', compact('cartItems'));
     }
+
+    //this function is used for update cart item from checkout page
+    public  function updateCart(Request $request)
+    {
+        $cart = $this->cart->getCart();
+
+          if (is_array($request->input('qty'))) {
+
+              foreach ($request->input('qty') as $itemId => $qty) {
+
+                  if ($cart->items()->where('id', $itemId)->count() > 0 && $qty > 0) {
+
+                      $cart->items()->find($itemId)->update([
+                          'qty' => $qty
+                      ]);
+
+                  }
+              }
+          }
+
+         return redirect('checkout/get-checkout');
+    }
+    //this function is used for delete cart item from checkout page
+    public function deleteCartItem(Request $request)
+    {
+        try {
+
+            $itemId = $request->input('product_id');
+
+            $cart = $this->cart->getCart();
+
+
+            if ($cartItem = $cart->items()->find($itemId)) {
+
+                $this->cart->removeItem($cartItem);
+
+            }
+
+            $cartItems = $this->cart->getCart()
+                ->items()
+                ->with('product')
+                ->get();
+
+            $excludeContainer = true;
+
+            return view('customer.checkout.cart', compact('cartItems', 'excludeContainer'));
+
+        } catch (\Exception $exception) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);
+
+        }
+    }
+
+
+
+
 }
