@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('_admin', auth('admin')->user());
         });
 
-        view()->composer('layout.*', function ($view) {
+        view()->composer('*', function ($view) {
             $categories = Category::active()->addToMenu()->get();
             $view->with('_categories', $categories);
         });

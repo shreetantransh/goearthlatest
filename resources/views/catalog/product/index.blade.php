@@ -43,7 +43,7 @@
                                         <div class="col-md-4 col-sm-12 col-xs-12 product-left">
                                             <div class="product-image">
                                                 <a href="product-detail-left-sidebar.html">
-                                                    <img class="img-responsive" src="img/product/4.jpg" alt="Product Image">
+                                                    <img class="img-responsive" src="{{ asset('img/product/4.jpg') }}" alt="Product Image">
                                                 </a>
                                             </div>
                                         </div>
@@ -79,7 +79,7 @@
                                         <div class="col-md-4 col-sm-12 col-xs-12 product-left">
                                             <div class="product-image">
                                                 <a href="product-detail-left-sidebar.html">
-                                                    <img class="img-responsive" src="img/product/30.jpg" alt="Product Image">
+                                                    <img class="img-responsive" src="{{ asset('img/product/30.jpg') }}" alt="Product Image">
                                                 </a>
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                                         <div class="col-md-4 col-sm-12 col-xs-12 product-left">
                                             <div class="product-image">
                                                 <a href="product-detail-left-sidebar.html">
-                                                    <img class="img-responsive" src="img/product/24.jpg" alt="Product Image">
+                                                    <img class="img-responsive" src="{{ asset('img/product/24.jpg') }}" alt="Product Image">
                                                 </a>
                                             </div>
                                         </div>
@@ -344,10 +344,6 @@
 
                         <!-- Related Products -->
                         @include('catalog.product.partial.related')
-
-                        @include('catalog.product.partial.cross-sells')
-
-                        @include('catalog.product.partial.upsells')
 
                         <br>
                         <br>

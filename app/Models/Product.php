@@ -114,4 +114,19 @@ class Product extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
+    public function stock()
+    {
+        return $this->hasOne(ProductStock::class);
+    }
+
+    public function inStock()
+    {
+        return (boolean)optional($this->stock)->quantity;
+    }
+
+    public function scopeHasStock($query)
+    {
+        return $query->leftJoin('product_stocks', 'product_stocks.product_id', '=', 'products.id')->where('product_stocks.quantity', '>', 0);
+    }
 }

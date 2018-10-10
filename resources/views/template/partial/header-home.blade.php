@@ -13,7 +13,7 @@
                                 <a href="product-grid-left-sidebar.html" title="Product">Category</a>
                                 <div class="dropdown-menu">
                                     <ul>
-                                        @foreach($categories as $category)
+                                        @foreach($_categories as $category)
                                             <li class="has-image">
                                                 <img src="img/product/product-category-5.png"
                                                      alt="Product Category Image">

@@ -180,7 +180,6 @@ return [
         Nayjest\Grids\ServiceProvider::class,
         Folklore\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Lubusin\Mojo\MojoServiceProvider::class,
     ],
 
     /*

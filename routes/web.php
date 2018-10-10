@@ -69,8 +69,6 @@ Route::group(['namespace' => 'Frontend'], function () {
 
 
 
-
-
     Route::group(['prefix' => 'product', 'namespace' => 'Products', 'as' => 'product.'], function () {
         Route::get('/', 'IndexController')->name('index');
         Route::get('/{slug}', 'DetailController')->name('detail');

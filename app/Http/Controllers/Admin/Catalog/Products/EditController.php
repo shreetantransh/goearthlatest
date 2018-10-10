@@ -27,6 +27,9 @@ class EditController extends AdminController
     {
         $validate = $this->crateValidation($product);
 
+        $validate['quantity'] = 'required_if:manage_stock,1';
+        $validate['stock_alert'] = 'required_if:manage_stock,1';
+
         $this->validate($request, $validate);
 
         $attributeCodes = $product->attributeSet->attributes()->pluck('code')->toArray();
@@ -60,6 +63,13 @@ class EditController extends AdminController
 
         $product->save();
         $product->categories()->sync($request->category);
+
+        $product->stock()->updateOrCreate(['product_id' => $product->id], [
+            'manage_stock' => $request->manage_stock ?: 0,
+            'quantity' => $request->quantity,
+            'stock_alert' => $request->stock_alert,
+            'stock_availability' => $request->stock_availability ?: 0
+        ]);
 
         if($request->redirect_url)
         {

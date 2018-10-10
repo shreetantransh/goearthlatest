@@ -41,6 +41,8 @@
 
                             @endif
 
+                        @elseif($group->getName() == 'Stock')
+                            @include('admin.catalog.products.stock', ['product' => $product])
                         @else
                             @foreach($group->attributes()->get() as $attribute)
                                 @if(View::exists('admin.catalog.attribute.inputs.' . $attribute->type))
