@@ -108,7 +108,6 @@
                                         <tr>
                                             <td colspan="3">
                                                 <div class="cart-button">
-                                                    <a class="btn btn-primary" href="{{ route('checkout.cart') }}" title="View Cart">View Cart</a>
                                                     <a class="btn btn-primary" href="{{ route('checkout.get-checkout') }}" title="Checkout">Checkout</a>
                                                 </div>
                                             </td>

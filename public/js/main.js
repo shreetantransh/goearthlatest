@@ -638,13 +638,13 @@
 		}
 
 
-     	//rest of three collapse should be disabled
+    	//rest of three collapse should be disabled
         $('[href="#collapseTwo"]').prop('disabled',true);
         $('[href="#collapseThree"]').prop('disabled',true);
         $('[href="#collapseFour"]').prop('disabled',true);
 
 		$('#continue_checkout').on('click', function(event){
-            $('[href="#collapseTwo"]').prop('disabled',false);
+            $('[href="#collapseOne"]').prop('disabled',false);
             $('#collapseOne').collapse('hide');
             $('#collapseTwo').collapse('show');
 		})
@@ -653,7 +653,7 @@
             //select delivery address from multiple address
             $("input[name='delivery_address_id']").val($(this).attr('data-address-id'));
             $('[href="#collapseTwo"]').prop('disabled',false);
-            $('#collapseTwo').collapse('hide');
+			$('#collapseTwo').collapse('hide');
             $('#collapseThree').collapse('show');
         })
 
@@ -672,22 +672,17 @@ jQuery(document).ready(function () {
     });
 });
 
-var context = _this;
 
 $('body').on('click', '#checkout_qty_updater', function () {
-
 	var currentCartItemInstance = $(this).closest('.product-row');
     var currentValue = parseInt(currentCartItemInstance.find('#product_qty').val());
-
     if ($(this).hasClass('minus')) {
-
-        if (currentValue > 1) {
+    	if (currentValue > 1) {
             currentCartItemInstance.find('#product_qty').val(currentValue - 1);
         }
     } else {
         currentCartItemInstance.find('#product_qty').val(currentValue + 1);
     }
-
 });
 
 

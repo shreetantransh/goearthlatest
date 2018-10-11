@@ -5180,3 +5180,14 @@ input.payment_mode_radio {
 .form-control.is-invalid{
     border: 1px solid red !important;
 }
+
+/*cart popup styles*/
+.fancybox-inner {
+    left: 15%!important;
+    right: 15%!important;
+}
+
+span.shipping-free {
+    color: #78b144;
+    font-weight: 600;
+}

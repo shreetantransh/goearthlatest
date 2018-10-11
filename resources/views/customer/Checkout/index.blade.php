@@ -6,15 +6,12 @@
         <div class="page-checkout">
         <div class="row">
                 <div class="checkout-left col-lg-9 col-md-9 col-sm-9 col-xs-12">
-
-
-
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        Login
+                                        1. Login
                                     </a>
                                 </h4>
                             </div>
@@ -22,7 +19,11 @@
                                 <div class="panel-body " id="checkout-shipping">
                                     @if(Auth::check())
                                         <p>Logged in as <span>{{ Auth::user()->email }}</span> </p>
-
+                                        <div class="row form-group">
+                                            <div class="col-md-12">
+                                                <input type="button" value="Continue Checkout" id="continue_checkout" class="btn pull-right btn-continue-checkout btn-primary">
+                                            </div>
+                                        </div>
                                     @else
                                         <p> Returning customer ? <a href="javascript:void(0)"  data-fancybox data-type="ajax" data-src="{{ route('customer.auth.account') }}"  title="Log in to your customer account">Click here to login</a> </p>
                                         {{--<p> Or Create an account</p>--}}
@@ -76,15 +77,7 @@
                                                 {{--</div>--}}
                                             {{--</div>--}}
                                         {{--{!! Form::close() !!}--}}
-
-
                                     @endif
-                                    <div class="row form-group">
-                                        <div class="col-md-12">
-                                            <input type="button" value="Continue Checkout" id="continue_checkout" class="btn pull-right btn-continue-checkout btn-primary">
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -92,7 +85,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                        Shipping Address
+                                        2. Shipping Address
                                     </a>
                                 </h4>
                             </div>
@@ -276,13 +269,12 @@
                                     @endif
                                 </div>
                             </div>
-
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        Review Order
+                                       3. Review Order
                                     </a>
                                 </h4>
                             </div>
@@ -328,41 +320,42 @@
                                                         </td>
                                                         <td class="text-center">{!! $cartItem->getProductFormattedTotal() !!}</td>
                                                         <td class="text-center">
-                                                            <a type="button" data-content="{{$cartItem->id}}" id="itemDelete"><i class="fa fa-trash" aria-hidden="true"></i>
+                                                            <a alt="Delete" title="Delete" href="{{route('checkout.deleteCartItem',$cartItem->id)}}"><i class="fa fa-trash" aria-hidden="true"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                                 <tr>
-                                                    <td colspan="2" class="text-center">Grand Total</td>
+                                                    <td colspan="3" class="text-center">Grand Total</td>
                                                     <td colspan="2" class="text-center">{!! $_cart->grandTotal(true) !!}</td>
                                                     <td></td>
                                                 </tr>
                                                 </tbody>
                                                 </table>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-md-12">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     <input type="submit" id="update_shopping_cart" value="Update Shopping Cart" class="btn pull-left btn-primary">
                                                 </div>
                                             </div>
-                                        {!! Form::close() !!}
-
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <input type="button" id="proceed_to_payment" value="Proceed to Payment" class="btn pull-right btn-primary">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="button" id="proceed_to_payment" value="Proceed to Payment" class="btn pull-right btn-primary">
+                                                </div>
                                             </div>
-                                        </div>
+
+                                        {!! Form::close() !!}
                                     @endif
                                 </div>
                             </div>
                         </div>
                         {!! Form::open(['route' => 'checkout.postCheckout','id'=>'checkOutForm']) !!}
-                        <div class="panel panel-default">
+                            <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                                        Make Payment
+                                       4. Make Payment
                                     </a>
                                 </h4>
                             </div>
@@ -385,62 +378,65 @@
                                 </div>
                             </div>
                         </div>
+                            {{--hidden field used to get address id when user click on delivery area button in li tag--}}
                             {!! Form::hidden('delivery_address_id',$address_id) !!}
                         {!! Form::close() !!}
                     </div>
                 </div>
-
-
                 <div class="checkout-right col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <h4 class="title">Order Summary</h4>
                     <table class="table cart-total">
                         <tbody>
                         <tr class="total">
                             <th>
-                                <strong>Cart Subtotal Excl.Tax</strong>
+                                <span>
+                                    Subtotal Excl.Tax
+                                </span>
                             </th>
                             <td>
-                                <strong><span class="amount">{!! $_cart->getSubTotal(true) !!}</span></strong>
+                                <span class="amount">{!! $_cart->getSubTotal(true) !!}</span>
                             </td>
                         </tr>
                         <tr class="total">
                             <th>
-                                <strong>Cart Subtotal Incl.Tax</strong>
+                               <span>
+                                   Subtotal Incl.Tax
+                               </span>
                             </th>
                             <td>
-                                <strong><span class="amount">{!! $_cart->getSubTotal(true) !!}</span></strong>
+                               <span class="amount">{!! $_cart->getSubTotal(true) !!}</span>
                             </td>
                         </tr>
                         <tr class="shipping">
                             <th>
-                                <strong>Shipping</strong>
+                                <span>Shipping</span>
                             </th>
                             <td>
-                                <strong><span class="shipping">Free shipping</span></strong>
+                                <span class="shipping-free">Free</span>
                             </td>
                         </tr>
                         <tr class="discount">
                             <th>
-                                <strong>Discount</strong>
+                                <span>Discount</span>
                             </th>
                             <td>
-                                <strong><span class="discount">0</span></strong>
+                                <span class="discount">{!! $_cart->getDiscount(true) !!}</span>
                             </td>
                         </tr>
                         <tr class="tax">
                             <th>
-                                <strong>Tax</strong>
+                                <span>Tax</span>
                             </th>
                             <td>
-                                <strong><span class="tax">0</span></strong>
+                                <span class="tax">0</span>
                             </td>
                         </tr>
                         <tr class="total">
                             <th>
-                                <strong>Order Total</strong>
+                                <span>Order Total</span>
                             </th>
                             <td>
-                                <strong><span class="amount">{!! $_cart->grandTotal(true) !!}</span></strong>
+                                <span class="amount">{!! $_cart->grandTotal(true) !!}</span>
                             </td>
                         </tr>
                         </tbody>

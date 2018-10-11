@@ -45,6 +45,7 @@ class CartController extends CustomerController
 
         $excludeContainer = true;
 
+
         return view('customer.cart.index', compact('cartItems', 'excludeContainer'));
     }
 

@@ -64,9 +64,11 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::post('saveAddress', 'Checkout\CheckoutController@postAddress')->name('saveAddress');
         Route::post('save_guest_details', 'Checkout\CheckoutController@postSaveGuest')->name('save_guest_details');
         Route::post('updateCart', 'Checkout\CheckoutController@updateCart')->name('updateCart');
+        Route::get('deleteCartItem/{product_id}', 'Checkout\CheckoutController@deleteCartItem')->name('deleteCartItem');
         Route::post('postCheckout', 'Checkout\CheckoutController@postCheckout')->name('postCheckout');
         Route::get('thank-you', 'Checkout\CheckoutController@getThankyou')->name('thank-you');
-        Route::get('confirm-details', 'Checkout\CheckoutController@getConfirmDetails')->name('confirm-details');
+        Route::get('post-ccavenue', 'Checkout\CheckoutController@postCCAvenue')->name('post-ccavenue');
+        Route::get('response-ccavenue', 'Checkout\CheckoutController@getResponseCCAvenue')->name('response-ccavenue');
     });
 
 
