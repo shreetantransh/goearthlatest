@@ -57,8 +57,8 @@
                 <div class="col-lg-5 col-md-5 col-sm-12 header-right d-flex justify-content-end align-items-center">
                     <!-- Search -->
                     <div class="form-search">
-                        <form action="index.html" method="get">
-                            <input type="text" class="form-input" placeholder="Search">
+                        <form action="{{ url('search') }}" method="get">
+                            <input type="text" class="form-input" name="term" placeholder="Search">
                             <button type="submit" class="fa fa-search"></button>
                         </form>
                     </div>
