@@ -11,8 +11,7 @@
                                     <img src="{{ asset('img/logo.png') }}" alt="Logo">
                                 </a>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisc ing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <p>Ut enim ad minim veniam, quis nostrud exercita tion ullamco laboris nisi ut aliquip.</p>
+                                <p>Organic farming practices and food demand is growing rapidly since last couple of years internationally. An accelerative increasing trend of 40% annual growth provides emerging opportunities in this sector.</p>
                             </div>
                         </div>
                     </div>
@@ -22,7 +21,7 @@
                             <h2 class="block-title">Newsletter</h2>
 
                             <div class="block-content">
-                                <p class="description">Sign up for newsletter to receive special offers and exclusive news about FreshMart products</p>
+                                <p class="description">Sign up for newsletter to receive special offers and exclusive news about Go earth Organic products</p>
                                 <form action="index.html" method="post">
                                     <input type="text" placeholder="Enter Your Email">
                                     <button type="submit" class="btn btn-primary">Subscribe</button>
@@ -33,15 +32,18 @@
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-col">
                         <div class="block text">
-                            <h2 class="block-title">Opening Hours</h2>
+                            <h2 class="block-title">Quick Links</h2>
 
                             <div class="block-content">
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                                <p>
-                                    <strong>Monday To Friday</strong> : 8.00 AM - 8.00 PM<br>
-                                    <strong>Satuday</strong> : 7.30 AM - 9.30 PM<br>
-                                    <strong>Sunday</strong> : 7.00 AM - 10.00 PM
-                                </p>
+                               <ul>
+                                   <li> </li>
+                                   <li><a href="">About Us</a> </li>
+                                   <li><a href="">Secure and safe shopping</a> </li>
+                                   <li><a href="">Privacy Policy </a> </li>
+                                   <li><a href="">Refund policy</a> </li>
+                                   <li><a href="">Contact us</a> </li>
+                                   <li><a href="">Sitemap</a> </li>
+                               </ul>
                             </div>
                         </div>
                     </div>

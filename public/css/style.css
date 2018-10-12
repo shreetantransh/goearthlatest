@@ -5170,3 +5170,6 @@ input.payment_mode_radio {
     margin-top: 20px!important;
 }
 
+.block-content ul li{
+    line-height: 1.8;
+}
