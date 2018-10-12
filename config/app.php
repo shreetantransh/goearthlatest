@@ -180,6 +180,8 @@ return [
         Nayjest\Grids\ServiceProvider::class,
         Folklore\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+
+        Softon\Indipay\IndipayServiceProvider::class,
     ],
 
     /*
@@ -234,6 +236,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Folklore\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'Indipay' => Softon\Indipay\Facades\Indipay::class,
     ],
 
 ];

@@ -34,7 +34,7 @@
                             </div>
                             <div class="item-right">
                                 <h3 class="title">Free Shipping item</h3>
-                                <div class="content">Proin gravida nibh vel velit auctor aliquet. Aenean lorem quis bibendum auctor</div>
+                                <div class="content">...</div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="item-right">
                                 <h3 class="title">Secured Payment</h3>
-                                <div class="content">Proin gravida nibh vel velit auctor aliquet. Aenean lorem quis bibendum auctor</div>
+                                <div class="content">...</div>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="item-right">
                                 <h3 class="title">Money Back Guarantee</h3>
-                                <div class="content">Proin gravida nibh vel velit auctor aliquet. Aenean lorem quis bibendum auctor</div>
+                                <div class="content">...</div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="item-right">
                                 <h3 class="title">Express Shipping</h3>
-                                <div class="content">Proin gravida nibh vel velit auctor aliquet. Aenean lorem quis bibendum auctor</div>
+                                <div class="content">...</div>
                             </div>
                         </div>
                     </div>

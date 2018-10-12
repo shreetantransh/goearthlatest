@@ -10,21 +10,25 @@ use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderLog;
 use App\Models\OrderProduct;
+use App\Models\ProductStock;
 use App\Models\State;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Softon\Indipay\Facades\Indipay;
 
 class CheckoutController extends CustomerController
 {
+
+    //load checkout page
     public  function  getCheckout()
     {
         //get items form cart
         $cartItems = $this->cart->getCart()->items()->with('product')->get();
 
-       //if cart blank then redirect to cart page instead checkout
+        //if cart blank then redirect to cart page instead checkout
         if(!$cartItems->count()){
             return view('customer.cart.index',compact('cartItems'));
         }
@@ -41,7 +45,7 @@ class CheckoutController extends CustomerController
         //redirect to checkout page with cartitems
         return view('customer.checkout.index',compact('cartItems','states','addresses'));
     }
-
+    //save address from checkout
     public function postAddress(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -78,10 +82,26 @@ class CheckoutController extends CustomerController
         $addressObj->is_default=($request->input('is_default')) == 'on' ? 1 : 0;
         $addressObj->save();
 
-
         return redirect('checkout/get-checkout');
     }
 
+    //currently this function not used but we can used later to store guest data in customer table
+    public function postSaveGuest(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'mobile' => 'required|numeric',
+            'email' => 'required|email|unique:customers',
+            'password'=>'required|min:8'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+    }
+    //post checkout form
     public function  postCheckout(Request $request)
     {
         //get items form cart and store in order products table
@@ -97,10 +117,11 @@ class CheckoutController extends CustomerController
         $orderObj->sub_total=$this->cart->grandTotal(false);
         $orderObj->total=$this->cart->grandTotal(false);
         $orderObj->payment_mode= $request->input('payment_method');
+        $orderObj->transaction_id = rand(000000,999999); //generate random transaction id
         $orderObj->save();
 
         //update order id with prefix 1000
-        $orderObj->order_id=1000 + $orderObj->id;
+        $orderObj->order_id = 1000 + $orderObj->id;
         $orderObj->save();
 
         //get last order id
@@ -139,7 +160,8 @@ class CheckoutController extends CustomerController
             $orderAddressObj->save();
         }
 
-        if($cartItems->count()){
+        if($cartItems->count())
+        {
             foreach($cartItems as $item){
                 //save product details
                 $orderProductObj= new OrderProduct();
@@ -150,11 +172,28 @@ class CheckoutController extends CustomerController
                 $orderProductObj->quantity=$item->qty;
                 $orderProductObj->sub_total=$item->getProductFormattedTotal();
                 $orderProductObj->save();
+
+                //update stock
+                $updateStockObj = ProductStock::where('product_id','=',$item->product->id)->first();
+                if($updateStockObj)
+                {
+                    if($updateStockObj->manage_stock == 1)
+                    {
+                        if($updateStockObj->quantity >0){
+                            $updateStockObj->quantity -= 1; //update quantity decrement by 1
+                        }
+                        else{
+                            $updateStockObj->stock_availability = 0;
+                        }
+                        $updateStockObj->save();
+                    }
+                }
+
             }
 
             //make cart empty
             $this->cart->getCart()->items()->delete();  // remove items from cart
-            $this->cart->getCart()->delete();          //remove cart row by session id
+            $this->cart->getCart()->delete();          //remove cart row
 
         }
 
@@ -163,11 +202,9 @@ class CheckoutController extends CustomerController
         }
         else
         {
-            return redirect('checkout/confirm-details');
+            return redirect('checkout/post-ccavenue');
         }
     }
-
-
     //function for thankyou page after checkout by COD
     public  function getThankYou()
     {
@@ -180,23 +217,106 @@ class CheckoutController extends CustomerController
         $order = Order::where('id','=',$orderId)->with('customer')->first();
         return view('customer.checkout.thankyou',compact('order'));
     }
-
-    //fucntion for confirm details after checkout By CCavenue
-    public function getConfirmDetails()
+    //function for confirm details after checkout
+    public function postCCAvenue()
     {
         $orderId = Session::get('orderId');
         if(is_null($orderId)){
             return redirect('home');
         }
+
         //get order details by order id
-        $order = Order::where('id','=',$orderId)->with('customer')->first();
-        return view('customer.checkout.confirm_details',compact('order'));
+        $orderObj = Order::where('id','=',$orderId)->with('customer')->first();
+
+        /* All Required Parameters by your Gateway */
+
+        $parameters = [
+
+            'tid' => $orderObj->transaction_id,
+
+            'order_id' => $orderObj->id,
+
+            'amount' => $orderObj->total,
+
+        ];
+
+        $order = Indipay::prepare($parameters);
+        return Indipay::process($order);
     }
 
+    public function  getResponseCCAvenue(Request $request)
+    {
+        $orderId = Session::get('orderId');
+        if(is_null($orderId)){
+            return redirect('home');
+        }
 
-    // this fucntion  is used when user click on cart icon in header bar
+        //get order details by order id
+        $order = Order::where('id','=',$orderId)->with('customer')->first();
+
+        // For default Gateway
+        $response = Indipay::response($request);
+
+        $status = "Credit";   // for testing
+        $transaction_id=123456;   // for testing
+        //status = $response->payment_request->payments[0]->status;
+        //$transaction_id =$response->payment_request->payments[0]->payment_id;
+        //uncomment this line if you got response
+
+        if($status === "Credit"){
+            //update trasaction id on current order id
+            $order->transaction_id = $transaction_id ; // use transaction id from response object instead hard code value
+            $order->is_paid=1;
+            $order->save();
+            return view('customer.checkout.ccavenue.success_response', compact('order'));
+        }
+        else{
+            $order->is_paid=1;
+            $order->save();
+            return view('customer.checkout.ccavenue.failer_response', compact('order'));
+        }
+    }
+
+    // this function  is used when user click on cart icon in header bar to show cart on page instead popup
+    //currently this function is not use you can delete this function and cart.blade file at your own risk
     public function  getCart(){
         $cartItems = $this->cart->getCart()->items()->with('product')->get();
         return view('customer.checkout.cart', compact('cartItems'));
     }
+
+    //this function is used for update cart item from checkout page
+    public  function updateCart(Request $request)
+    {
+        $cart = $this->cart->getCart();
+
+          if (is_array($request->input('qty'))) {
+
+              foreach ($request->input('qty') as $itemId => $qty) {
+
+                  if ($cart->items()->where('id', $itemId)->count() > 0 && $qty > 0) {
+
+                      $cart->items()->find($itemId)->update([
+                          'qty' => $qty
+                      ]);
+                  }
+              }
+          }
+
+          return redirect('checkout/get-checkout');
+    }
+    //this function is used for delete cart item from checkout page
+    public function deleteCartItem($itemId)
+    {
+        $cart = $this->cart->getCart();
+
+        if ($cartItem = $cart->items()->find($itemId)) {
+            $this->cart->removeItem($cartItem);
+        }
+
+        return redirect('checkout/get-checkout');
+    }
+
+
+
+
 }
