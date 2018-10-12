@@ -38,13 +38,13 @@ class CartController extends CustomerController
             }
         }
 
-
         $cartItems = $this->cart->getCart()
             ->items()
             ->with('product')
             ->get();
 
         $excludeContainer = true;
+
 
         return view('customer.cart.index', compact('cartItems', 'excludeContainer'));
     }

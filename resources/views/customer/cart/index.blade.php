@@ -4,18 +4,15 @@
         @if($cartItems->count())
             <h3 class="text-center">Shopping Cart</h3>
             <div class="mycart">
-
                 <div class="container">
                     <div class="row ">
                         <div class="col-sm-12">
-
-
                             <form method="post" enctype="multipart/form-data">
                                 <div class="col-md-12 col-xs-6 col-sm-6 table-responsive">
-                                    <table class="table listproducts">
+                                    <table class="table table-bordered listproducts">
                                         <thead>
                                         <tr>
-                                            <td class="text-left">Items</td>
+                                            <td class="text-center">Items</td>
                                             <td class="text-center">Unit Price</td>
                                             <td class="text-center">Quantity(Kg)</td>
                                             <td class="text-center">Sub Total</td>
@@ -25,7 +22,7 @@
                                         <tbody>
                                         @foreach ($cartItems as $key => $cartItem)
                                             <tr class="product-row">
-                                                <td class="text-left">
+                                                <td class="text-center">
                                                     <a href="javascript:void(0)" class="product-item-photo">
                                                         <img src="{{ $cartItem->product->getBaseImage(\App\Models\ProductImage::VERY_SMALL) }}" class="img-responsive" alt="img" title="img" height="60" width="60"/>
                                                     </a>
@@ -55,8 +52,8 @@
                                             </tr>
                                         @endforeach
                                         <tr>
-                                            <td colspan="2">Grand Total</td>
-                                            <td colspan="2" class="text-right">{!! $_cart->grandTotal(true) !!}</td>
+                                            <td colspan="3" class="text-center">Grand Total</td>
+                                            <td colspan="2" class="text-center">{!! $_cart->grandTotal(true) !!}</td>
                                             <td></td>
                                         </tr>
                                         </tbody>
@@ -66,7 +63,6 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="buttons">
-                                <a href="{{ route('checkout.cart') }}" class="btn-primary btn">View Cart</a>
                                 <a href="{{ route('checkout.get-checkout') }}" class="btn-primary btn pull-right" >Proceed to Checkout </a>
                             </div>
                         </div>

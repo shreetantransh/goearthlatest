@@ -637,92 +637,31 @@
 			}, 20 * 1000);
 		}
 
-		//default open first collapse
-        $('#collapseOne').collapse('show');
 
+    	//rest of three collapse should be disabled
         $('[href="#collapseTwo"]').prop('disabled',true);
         $('[href="#collapseThree"]').prop('disabled',true);
+        $('[href="#collapseFour"]').prop('disabled',true);
 
+		$('#continue_checkout').on('click', function(event){
+            $('[href="#collapseOne"]').prop('disabled',false);
+            $('#collapseOne').collapse('hide');
+            $('#collapseTwo').collapse('show');
+		})
 
-        //select delivery address from multiple address
         $('.deliver_here').on('click', function(event){
-        	$("input[name='delivery_address_id']").val($(this).attr('data-address-id'));
+            //select delivery address from multiple address
+            $("input[name='delivery_address_id']").val($(this).attr('data-address-id'));
+            $('[href="#collapseTwo"]').prop('disabled',false);
+			$('#collapseTwo').collapse('hide');
+            $('#collapseThree').collapse('show');
         })
 
         $('#proceed_to_payment').on('click', function(event){
             $('[href="#collapseThree"]').prop('disabled',false);
-            $('#collapseTwo').collapse('hide');
-            $('#collapseThree').collapse('show');
+            $('#collapseThree').collapse('hide');
+            $('#collapseFour').collapse('show');
         })
-
-        $('#save_address').on('click', function(event){
-            $('[href="#collapseTwo"]').prop('disabled',false);
-            $('#collapseOne').collapse('hide');
-            $('#collapseTwo').collapse('show');
-
-        })
-        $('.deliver_here').on('click', function(event){
-            $('[href="#collapseTwo"]').prop('disabled',false);
-            $('#collapseOne').collapse('hide');
-            $('#collapseTwo').collapse('show');
-        })
-
-
-
-
-        // Ajax for our form
-        // $('.btn-save-address').on('click', function(event){
-		//
-        // 	alert('ok');
-		//
-        //    event.preventDefault();
-		//
-		// 	const formData = {
-        //         state_id     : $('#state').val(),
-        //         city_id      : $('#city').val(),
-        //         first_name   : $('#fname').val(),
-        //         last_name    : $('#lname').val(),
-		// 		mobile 		: $('#mobile').val(),
-        //         street     : $('#street').val(),
-        //         landmark     : $('#landmark').val(),
-        //         pincode     : $('#pincode').val(),
-        //         address  : $('textarea[name=address]').val(),
-		// 		is_default : $("input[type='checkbox']").val(),
-		// 		_token: $('meta[name="csrf-token"]').attr('content')
-        //     }
-		//
-        //     console.log(formData);
-		//
-        //     $.ajax({
-        //         type     : "POST",
-        //         url      : 'postAddress',
-        //         data     : formData,
-        //         cache    : false,
-		//
-        //         success  : function(data) {
-		//
-        //             if(data.status == 0)
-        //             {
-		// 					$.each(data.error, function(key, value){
-		// 						$('.alert-danger').show();
-		// 						$('.alert-danger').append('<p>'+value+'</p>');
-		// 					});
-		// 			}
-		// 			else {
-		// 				$('#collapseOne').collapse('hide');
-		// 				$('#collapseTwo').collapse('show');
-		// 			}
-		// 		}
-		//
-        //     })
-		//
-		//
-        //     return false;
-		//
-        // });
-
-
-
 	});
 })()
 
@@ -732,3 +671,18 @@ jQuery(document).ready(function () {
 		jQuery(this).closest("li").addClass('active');
     });
 });
+
+
+$('body').on('click', '#checkout_qty_updater', function () {
+	var currentCartItemInstance = $(this).closest('.product-row');
+    var currentValue = parseInt(currentCartItemInstance.find('#product_qty').val());
+    if ($(this).hasClass('minus')) {
+    	if (currentValue > 1) {
+            currentCartItemInstance.find('#product_qty').val(currentValue - 1);
+        }
+    } else {
+        currentCartItemInstance.find('#product_qty').val(currentValue + 1);
+    }
+});
+
+

@@ -5161,6 +5161,13 @@ p.error {
     display: inline-block;
 }
 
+p.invalid-feedback {
+    color: red;
+    font-size: 11px;
+    padding-top: 5px;
+    display: inline-block;
+}
+
 .form-check-gender.male {
     float: left;
     margin-right: 15px;
@@ -5170,6 +5177,23 @@ input.payment_mode_radio {
     margin-top: 20px!important;
 }
 
+<<<<<<< HEAD
 .block-content ul li{
     line-height: 1.8;
 }
+=======
+.form-control.is-invalid{
+    border: 1px solid red !important;
+}
+
+/*cart popup styles*/
+.fancybox-inner {
+    left: 15%!important;
+    right: 15%!important;
+}
+
+span.shipping-free {
+    color: #78b144;
+    font-weight: 600;
+}
+>>>>>>> 2d3680cf292a6592a701942a6b3fd0e323ab9cd2

@@ -120,6 +120,7 @@ class Cart
         }
 
         return $subTotal - (($this->getDiscount() && $deductedDiscount == true) ? $this->getDiscount() : 0);
+
     }
 
     public function grandTotal($formatted = false, $deductedDiscount = false)
@@ -136,7 +137,6 @@ class Cart
     public function addVoucherToCart(Voucher $voucher, array $response)
     {
        return $this->getCart()->update(['voucher' => $voucher->code, 'discount' => $response['discount']]);
-
     }
 
     public function getDiscount($formatted = false)

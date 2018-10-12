@@ -33,7 +33,6 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-col">
                         <div class="block text">
                             <h2 class="block-title">Quick Links</h2>
-
                             <div class="block-content">
                                <ul>
                                    <li> </li>
@@ -54,9 +53,9 @@
 
                             <div class="block-content">
                                 <div class="contact">
-                                    <p><strong>Address</strong> : 123 Suspendis matti, VST District, NY Accums, North American</p>
-                                    <p><strong>Hotline</strong> : 012345678910 - 098765432100</p>
-                                    <p><strong>Email</strong> : <a href="mailto:support@domain.com">support@domain.com</a></p>
+                                    <p><strong>Address</strong> : 224-225, Sangath Mall - 1 opp, Vishwakarma Goverment Engineering College, Vist Gadhinagar Highway, Motera, Ahmedabad-380005</p>
+                                    <p><strong>Hotline</strong> :  +91-7574-888-777, <br> +91-7574-888-705</p>
+                                    <p><strong>Email</strong> : <a href="mailto:support@domain.com">support@goearth.com</a></p>
                                 </div>
                             </div>
                         </div>
