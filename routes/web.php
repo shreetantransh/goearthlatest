@@ -59,16 +59,35 @@ Route::group(['namespace' => 'Frontend'], function () {
     //checkout routes
     Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
         //route for cart when user click on cart icon in header
-        Route::get('cart', 'Checkout\CheckoutController@getCart')->name('cart');
+
         Route::get('get-checkout', 'Checkout\CheckoutController@getCheckout')->name('get-checkout');
         Route::post('saveAddress', 'Checkout\CheckoutController@postAddress')->name('saveAddress');
+        Route::post('postCheckout', 'Checkout\CheckoutController@postCheckout')->name('postCheckout');
+
+
+        //route not used currently
         Route::post('save_guest_details', 'Checkout\CheckoutController@postSaveGuest')->name('save_guest_details');
+        Route::get('cart', 'Checkout\CheckoutController@getCart')->name('cart');
+
+        //routes for update delete cart on checkout page
         Route::post('updateCart', 'Checkout\CheckoutController@updateCart')->name('updateCart');
         Route::get('deleteCartItem/{product_id}', 'Checkout\CheckoutController@deleteCartItem')->name('deleteCartItem');
-        Route::post('postCheckout', 'Checkout\CheckoutController@postCheckout')->name('postCheckout');
+
+        //route for Cash on delivery  thank you page
         Route::get('thank-you', 'Checkout\CheckoutController@getThankyou')->name('thank-you');
-        Route::get('post-ccavenue', 'Checkout\CheckoutController@postCCAvenue')->name('post-ccavenue');
-        Route::get('response-ccavenue', 'Checkout\CheckoutController@getResponseCCAvenue')->name('response-ccavenue');
+
+        //routes for CCAvenue Integration
+        Route::get('get-ccavenue', 'Checkout\CheckoutController@getCCAvenue')->name('get-ccavenue');
+        Route::post('response-ccavenue', 'Checkout\CheckoutController@postResponseCCAvenue')->name('response-ccavenue');
+
+        //routes for Paytm Integration
+        Route::get('get-paytm', 'Checkout\CheckoutController@getPayTm')->name('get-paytm');
+        Route::post('response-paytm', 'Checkout\CheckoutController@postResponsePayTm')->name('response-paytm');
+
+        //route for send message notification
+        Route::get('send-message', 'Checkout\CheckoutController@sendMessageNotification')->name('send-message');
+        //route for send email notification
+        Route::get('send-email/{orderId}', 'Checkout\CheckoutController@sendEmailNotification')->name('send-email');
     });
 
 

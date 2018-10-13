@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Frontend\Checkout;
 
+use App\Logic\MSG91;
+use App\Logic\PayTm;
+use App\Mail\SendMailable;
+use Illuminate\Support\Facades\Mail;
+use PaytmWallet;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Logic\Cart;
 use App\Models\Address;
@@ -128,6 +133,8 @@ class CheckoutController extends CustomerController
         $orderObj = Order::where('customer_id','=',$this->getCustomer()->id)->orderBy('id','desc')->limit(1)->first();
 
         //set order id in session so we can use in thank you and confirm detail page
+        //remove previous session and set new order id
+        Session::remove('orderId');
         Session::put('orderId',$orderObj->id);
 
         //save order log by default pending status
@@ -188,7 +195,6 @@ class CheckoutController extends CustomerController
                         $updateStockObj->save();
                     }
                 }
-
             }
 
             //make cart empty
@@ -197,32 +203,48 @@ class CheckoutController extends CustomerController
 
         }
 
-        if($request->input('payment_method') === 'COD'){
-            return redirect('checkout/thank-you');
+
+
+        if($request->input('payment_method') === 'CCAvenue')
+        {
+            return redirect('checkout/get-ccavenue');
+        }
+        elseif($request->input('payment_method') === 'Paytm')
+        {
+            return redirect('checkout/get-paytm');
         }
         else
         {
-            return redirect('checkout/post-ccavenue');
+            return redirect('checkout/thank-you');
         }
+
     }
-    //function for thankyou page after checkout by COD
+    //function for thankyou page after checkout for COD
     public  function getThankYou()
     {
         $orderId = Session::get('orderId');
         if(is_null($orderId)){
-            return redirect('home');
+            return redirect('/');
         }
 
         //get order details by order id
         $order = Order::where('id','=',$orderId)->with('customer')->first();
+
+        //send message notification
+        $this->sendMessageNotification($orderId);
+
+        //send email notification
+        $this->sendEmailNotification($orderId);
+
         return view('customer.checkout.thankyou',compact('order'));
     }
-    //function for confirm details after checkout
-    public function postCCAvenue()
+
+    //function for redirect to ccavenue after checkout
+    public function getCCAvenue()
     {
         $orderId = Session::get('orderId');
         if(is_null($orderId)){
-            return redirect('home');
+            return redirect('/');
         }
 
         //get order details by order id
@@ -244,11 +266,11 @@ class CheckoutController extends CustomerController
         return Indipay::process($order);
     }
 
-    public function  getResponseCCAvenue(Request $request)
+    public function  postResponseCCAvenue(Request $request)
     {
         $orderId = Session::get('orderId');
         if(is_null($orderId)){
-            return redirect('home');
+            return redirect('/');
         }
 
         //get order details by order id
@@ -264,17 +286,87 @@ class CheckoutController extends CustomerController
         //uncomment this line if you got response
 
         if($status === "Credit"){
+
             //update trasaction id on current order id
             $order->transaction_id = $transaction_id ; // use transaction id from response object instead hard code value
             $order->is_paid=1;
             $order->save();
+
+            //send message notification
+            $this->sendMessageNotification($orderId);
+
+            //send email notification
+            $this->sendEmailNotification($orderId);
+
             return view('customer.checkout.ccavenue.success_response', compact('order'));
         }
         else{
-            $order->is_paid=1;
+            $order->transaction_id = $transaction_id ;
+            $order->is_paid=0;
             $order->save();
             return view('customer.checkout.ccavenue.failer_response', compact('order'));
         }
+    }
+
+    public function  getPayTm()
+    {
+        $orderId = Session::get('orderId');
+        if(is_null($orderId)){
+            return redirect('/');
+        }
+
+        //get order details by order id
+        $order = Order::where('id','=',$orderId)->with('customer')->first();
+
+        $paytmObj = new PayTm();
+        $data_for_request = $paytmObj->handlePaytmRequest( $order->id, $order->total );
+
+        if(env('PAYTM_ENVIRONMENT') === 'TEST'){
+            $paytm_txn_url = 'https://securegw-stage.paytm.in/theia/processTransaction';
+        }
+        else{
+            $paytm_txn_url = 'https://securegw.paytm.in/theia/processTransaction';
+        }
+         $paramList = $data_for_request['paramList'];
+         $checkSum = $data_for_request['checkSum'];
+        //return view( 'customer.checkout.paytm.paytm-merchant-form', compact( 'paytm_txn_url', 'paramList', 'checkSum' ) );
+
+    }
+
+    public function  postResponsePayTm(Request $request)
+    {
+
+        var_dump($request->all());
+        dd('test');
+//
+//        $orderId = Session::get('orderId');
+//        if(is_null($orderId)){
+//            return redirect('/');
+//        }
+//
+//        //get order details by order id
+//        $order = Order::where('id','=',$orderId)->with('customer')->first();
+//
+//        if(1){
+//            //update transaction id on current order id
+//            $order->transaction_id = $transaction->getTransactionId();
+//            $order->is_paid=1;
+//            $order->save();
+//
+//            //send message notification
+//            $this->sendMessageNotification($orderId);
+
+              //send email notification
+//            $this->sendEmailNotification($orderId);
+//
+//            return view('customer.checkout.paytm.success_response', compact('order'));
+//        }
+//        elseif(){
+//            $order->transaction_id = $transaction->getTransactionId();
+//            $order->is_paid=0;
+//            $order->save();
+//            return view('customer.checkout.paytm.failer_response', compact('order'));
+//        }
     }
 
     // this function  is used when user click on cart icon in header bar to show cart on page instead popup
@@ -316,7 +408,45 @@ class CheckoutController extends CustomerController
         return redirect('checkout/get-checkout');
     }
 
+    public function sendMessageNotification($orderId)
+    {
+        if(is_null($orderId)){
+           return redirect('/');
+        }
+
+        //get order details by order id
+        $order = Order::where('id','=',$orderId)->with('customer')->first();
+
+        $fname=$order->customer->first_name;
+
+        if($order->payment_mode ==='Paytm' || $order->payment_mode === 'CCAvenue'){
+            //Your message to send, Adding URL encoding.s
+            $payment_status = ($order->is_paid ==1)? 'Paid': 'Unpaid';
+            $message = urlencode("Hello $fname , we've received your order.Your Order Id is :$order->id Amount : $order->total Payment mode : $order->payment_mode  Transaction Id : $order->transaction_id  Status : $payment_status. Thank you");
+        }
+        else{
+            //Your message to send, Adding URL encoding.s
+            $message = urlencode("Hello $fname , we've received your order.Your Order Id is :$order->id Amount : $order->total Payment mode : $order->payment_mode . Thank you");
+        }
+
+        $MSG91 = new MSG91();
+        $msg91Response = $MSG91->sendSMS($order->customer->mobile,$message);
+    }
 
 
+    public function  sendEmailNotification($orderId){
+
+        if(is_null($orderId)){
+            return redirect('/');
+        }
+
+        //get order details by order id
+        $order = Order::where('id','=',$orderId)->with('customer','address','address.city','address.state')->first();
+
+        //send mail
+        Mail::send('customer.checkout.email',compact('order'),function($message) use ($order){
+            $message->to($order->customer->email,'Go earth organic')->subject('Order Confirmation');
+        });
+    }
 
 }

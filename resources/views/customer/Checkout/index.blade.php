@@ -371,7 +371,6 @@
                                     <div class="radio">
                                         <label><input type="radio" name="payment_method" value="Paytm" class="payment_mode_radio"><img src="{{ asset('img/icon/paytm.png') }}" height="50" width="100"></label>
                                     </div>
-
                                     <div class="pull-right">
                                         <input type="submit" value="Place Order" name="proceed" class="btn btn-primary">
                                     </div>

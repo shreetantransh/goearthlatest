@@ -182,6 +182,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
 
         Softon\Indipay\IndipayServiceProvider::class,
+        Anand\LaravelPaytmWallet\PaytmWalletServiceProvider::class,
     ],
 
     /*
@@ -238,6 +239,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
         'Indipay' => Softon\Indipay\Facades\Indipay::class,
+        'PaytmWallet' => Anand\LaravelPaytmWallet\Facades\PaytmWallet::class,
     ],
 
 ];
