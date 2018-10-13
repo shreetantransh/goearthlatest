@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ba2b914472c68b40417a245e78288ed",
+    "content-hash": "85b33fdbbb133fa8d20e18a31bcd8892",
     "packages": [
+        {
+            "name": "anandsiddharth/laravel-paytm-wallet",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anandsiddharth/laravel-paytm-wallet.git",
+                "reference": "2dd73066a9a49d96df53e2d6113865137b1b1f98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anandsiddharth/laravel-paytm-wallet/zipball/2dd73066a9a49d96df53e2d6113865137b1b1f98",
+                "reference": "2dd73066a9a49d96df53e2d6113865137b1b1f98",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Anand\\LaravelPaytmWallet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anand Siddharth",
+                    "email": "anandsiddharth21@gmail.com"
+                }
+            ],
+            "description": "Integrate paytm wallet easily with this package. This package uses official Paytm PHP SDK's",
+            "keywords": [
+                "laravel",
+                "paytm wallet"
+            ],
+            "time": "2018-09-27T03:33:20+00:00"
+        },
         {
             "name": "cocur/slugify",
             "version": "v3.1",
