@@ -69,9 +69,4 @@ return [
     'remove_csrf_check' => [
         'checkout/response-ccavenue'
     ],
-
-
-
-
-
 ];

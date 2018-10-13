@@ -39,6 +39,7 @@
                                     </select>
                                 </div>
 
+
                             @endif
 
                         @elseif($group->getName() == 'Stock')

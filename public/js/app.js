@@ -30271,15 +30271,12 @@ __webpack_require__(164);
 window.fancybox = __webpack_require__(165);
 
 __webpack_require__(166);
-__webpack_require__(167);
 __webpack_require__(168);
 
 __webpack_require__(172);
 __webpack_require__(173);
 __webpack_require__(174);
 __webpack_require__(175);
-__webpack_require__(176);
-__webpack_require__(177);
 __webpack_require__(178);
 __webpack_require__(179);
 __webpack_require__(180);
@@ -49448,23 +49445,7 @@ var LayeredNav = function LayeredNav() {
 new LayeredNav();
 
 /***/ }),
-/* 167 */
-/***/ (function(module, exports) {
-
-$(function () {
-
-    $('a#sidebar-menu-toggle, #reset-menu').on('click', function (e) {
-        e.preventDefault();
-
-        $('body').toggleClass('sidebar-menu-open');
-    });
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("body").toggleClass("toggled");
-    });
-});
-
-/***/ }),
+/* 167 */,
 /* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50505,178 +50486,8 @@ var Address = function Address() {
 new Address();
 
 /***/ }),
-/* 176 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Loader__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Loader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FormError__ = __webpack_require__(5);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-
-
-var Voucher = function Voucher() {
-            var _this = this;
-
-            _classCallCheck(this, Voucher);
-
-            this._applyVoucher = function () {
-                        var context = _this;
-
-                        __WEBPACK_IMPORTED_MODULE_1_jquery___default()('body').on('submit', 'form#voucher-form', function () {
-                                    var _this2 = this;
-
-                                    var form = __WEBPACK_IMPORTED_MODULE_1_jquery___default()(this);
-
-                                    if (this.lock) {
-                                                return;
-                                    }
-
-                                    this.lock = true;
-                                    __WEBPACK_IMPORTED_MODULE_2__Loader___default.a.show();
-
-                                    form.find('label.error').remove();
-
-                                    var data = new FormData(this);
-
-                                    var url = __WEBPACK_IMPORTED_MODULE_1_jquery___default()(this).attr('action');
-
-                                    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(url, data, { dataType: 'json', accept: 'application/json' }).then(function (_ref) {
-                                                var data = _ref.data;
-
-
-                                                _this2.lock = false;
-
-                                                __WEBPACK_IMPORTED_MODULE_2__Loader___default.a.hide();
-
-                                                Cart._getCheckoutCart(data.message);
-                                    }).catch(function (_ref2) {
-                                                var request = _ref2.request;
-
-
-                                                _this2.lock = false;
-
-                                                __WEBPACK_IMPORTED_MODULE_2__Loader___default.a.hide();
-
-                                                var status = request.status,
-                                                    response = request.response;
-
-
-                                                if (status === 422 || status === 423) {
-                                                            context.voucherFormErrorHandler.show(JSON.parse(response));
-                                                }
-                                    });
-
-                                    return false;
-                        });
-            };
-
-            this.voucherForm = __WEBPACK_IMPORTED_MODULE_1_jquery___default()('form#voucher-form');
-
-            this.voucherFormErrorHandler = new __WEBPACK_IMPORTED_MODULE_3__FormError__["a" /* default */](this.voucherForm);
-
-            this._applyVoucher();
-};
-
-new Voucher();
-
-/***/ }),
-/* 177 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Loader__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Loader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FormError__ = __webpack_require__(5);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-
-
-var Payment = function Payment() {
-            var _this = this;
-
-            _classCallCheck(this, Payment);
-
-            this._payment = function () {
-                        var context = _this;
-
-                        __WEBPACK_IMPORTED_MODULE_1_jquery___default()('body').on('submit', 'form#payment-form', function () {
-                                    var _this2 = this;
-
-                                    var form = __WEBPACK_IMPORTED_MODULE_1_jquery___default()(this);
-
-                                    if (this.lock) {
-                                                return;
-                                    }
-
-                                    this.lock = true;
-                                    __WEBPACK_IMPORTED_MODULE_2__Loader___default.a.show();
-
-                                    form.find('label.error').remove();
-
-                                    var data = new FormData(this);
-
-                                    var url = __WEBPACK_IMPORTED_MODULE_1_jquery___default()(this).attr('action');
-
-                                    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(url, data, { dataType: 'json', accept: 'application/json' }).then(function (_ref) {
-                                                var data = _ref.data;
-
-
-                                                _this2.lock = false;
-
-                                                __WEBPACK_IMPORTED_MODULE_2__Loader___default.a.hide();
-
-                                                Cart._getCheckoutCart(data.message);
-
-                                                window.location.href = data.redirect;
-                                    }).catch(function (_ref2) {
-                                                var request = _ref2.request;
-
-
-                                                _this2.lock = false;
-
-                                                __WEBPACK_IMPORTED_MODULE_2__Loader___default.a.hide();
-
-                                                var status = request.status,
-                                                    response = request.response;
-
-
-                                                if (status === 422 || status === 423) {
-                                                            context.paymentFormErrorHandler.show(JSON.parse(response));
-                                                }
-                                    });
-
-                                    return false;
-                        });
-            };
-
-            this.paymentForm = __WEBPACK_IMPORTED_MODULE_1_jquery___default()('form#payment-form');
-
-            this.paymentFormErrorHandler = new __WEBPACK_IMPORTED_MODULE_3__FormError__["a" /* default */](this.paymentForm);
-
-            this._payment();
-};
-
-new Payment();
-
-/***/ }),
+/* 176 */,
+/* 177 */,
 /* 178 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

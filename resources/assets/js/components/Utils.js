@@ -148,4 +148,5 @@ $('#rating-star').each(function () {
             $(this).next().val(rating);
         }
     });
-});
+})
+

@@ -56,6 +56,12 @@ Route::group(['namespace' => 'Frontend'], function () {
 
     Route::get('/', 'HomeController')->name('home');
 
+    Route::get('about-us', 'PageController@about')->name('about');
+    Route::get('buying-guide', 'PageController@buying')->name('buying-guide');
+    Route::get('privacy-policy', 'PageController@privacy')->name('privacy');
+    Route::get('terms-and-conditions', 'PageController@terms')->name('terms');
+    Route::get('contact-us', 'PageController@contactUs')->name('contact-us');
+
     //checkout routes
     Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
         //route for cart when user click on cart icon in header
