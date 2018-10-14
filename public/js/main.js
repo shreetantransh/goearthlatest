@@ -662,6 +662,26 @@
             $('#collapseThree').collapse('hide');
             $('#collapseFour').collapse('show');
         })
+
+        $('#apply_voucher').on('click', function(event){
+			const code =$("#voucher_code").val();
+
+            $.post( "/checkout/apply-voucher", {'code':code, _token : $('meta[name="csrf-token"]').attr('content')},function( data ) {
+            	if(data.error){
+                    $( ".voucher-msg p.invalid-feedback" ).html( data.msg );
+                    $("input#voucher_code").addClass('is-invalid');
+                    $( ".voucher-msg p.text-success" ).html('');
+				}
+				else {
+                    $( ".voucher-msg p.invalid-feedback" ).html( '');
+                    $( ".voucher-msg p.text-success" ).html(data.msg);
+                    $("input#voucher_code").removeClass('is-invalid');
+                    $( ".discount-value" ).html( data.discount );
+                    $( ".total-amount-value" ).html( data.total_amount );
+				}
+
+            });
+		})
 	});
 })()
 

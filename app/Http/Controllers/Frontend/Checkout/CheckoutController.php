@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Frontend\Checkout;
 use App\Logic\MSG91;
 use App\Logic\PayTm;
 use App\Mail\SendMailable;
+use App\Models\Voucher;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use function MongoDB\BSON\toJSON;
 use PaytmWallet;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Logic\Cart;
@@ -119,10 +122,11 @@ class CheckoutController extends CustomerController
         //save order details
         $orderObj= new Order();
         $orderObj->customer_id=$this->getCustomer()->id;
-        $orderObj->sub_total=$this->cart->grandTotal(false);
-        $orderObj->total=$this->cart->grandTotal(false);
+        $orderObj->sub_total=$this->cart->getSubTotal(false);
+        $orderObj->total=$this->cart->grandTotal(false,true);
+        $orderObj->discount=$this->cart->getDiscount();
         $orderObj->payment_mode= $request->input('payment_method');
-        $orderObj->transaction_id = rand(000000,999999); //generate random transaction id
+        $orderObj->transaction_id = rand(000000000,999999999); //generate random transaction id
         $orderObj->save();
 
         //update order id with prefix 1000
@@ -433,7 +437,6 @@ class CheckoutController extends CustomerController
         $msg91Response = $MSG91->sendSMS($order->customer->mobile,$message);
     }
 
-
     public function  sendEmailNotification($orderId){
 
         if(is_null($orderId)){
@@ -449,4 +452,80 @@ class CheckoutController extends CustomerController
         });
     }
 
+    public function applyVoucher(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'code' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(array('error'=>1,'msg'=>'Please enter code'));
+        }
+
+        $voucherObj = Voucher::where([
+            ['code','=',$request->input('code')],
+            ['is_active','=',1]
+        ])->first();
+
+        //fetch cart amount
+        $cartAmount = $this->cart->getSubTotal();
+
+        //check voucher valid or not
+        if($voucherObj){
+                //no need to check is used because amount already fetch from cart so you can remove this
+                if($voucherObj->is_used === 1){
+                    return response()->json(array('error'=>1,'msg'=>'Voucher has been used already'));
+                }
+                else{
+                    //check cart amount with minimum cart amount
+                    if($cartAmount < $voucherObj->min_cart_amount){
+                        return response()->json(array('error'=>1,'msg'=>"Your minimum cart amount is less than $voucherObj->min_cart_amount "));
+                    }
+                    else if(!Carbon::now()->between(Carbon::parse(Carbon::createFromFormat('d/m/Y',$voucherObj->valid_from)), Carbon::parse(Carbon::createFromFormat('d/m/Y',$voucherObj->valid_to))))
+                    {
+                        return response()->json(array('error'=>1,'msg'=>"Voucher validity has been expired"));
+                    }  // add here product SKU and categories condition in else if
+                    else{
+                        if($voucherObj->type ==1){
+                            $discount=$voucherObj->discount;
+
+                            //add voucher to cart
+                            $this->cart->getCart()->update(['voucher' => $voucherObj->code, 'discount' => $discount]);
+
+                            //get total amount after discount
+                            $total_amount =$this->cart->grandTotal(true,true);
+
+                            //expire voucher after use
+                            $voucherObj->is_used=1;
+                            $voucherObj->save();
+
+                            return response()->json(array('error'=>0,'msg'=>"Congrats! You got Rs. $discount discount",'discount'=>$discount,'total_amount'=>$total_amount));
+                        }
+                        elseif($voucherObj->type == 2){
+                            $discount = ($cartAmount * $voucherObj->discount) * 100;
+
+                            if($discount>$voucherObj->max_discount){
+                                return response()->json(array('error'=>1,'msg'=>"Discount must be less than to maximum discount $voucherObj->max_discount "));
+                            }
+
+                            //add voucher to cart
+                            $this->cart->getCart()->update(['voucher' => $voucherObj->code, 'discount' => $discount]);
+
+                            //get total amount after discount
+                            $total_amount =$this->cart->grandTotal(true,true);
+
+                            //expire voucher after use
+                            $voucherObj->is_used=1;
+                            $voucherObj->save();
+
+                            return response()->json(array('error'=>0,'msg'=>"Congrats! You got Rs. $discount discount",'discount'=>$discount,'total_amount'=>$total_amount));
+                        }
+                    }
+                }
+
+        }
+        else{
+            return response()->json(array('error'=>1,'msg'=>'Invalid code'));
+        }
+    }
 }

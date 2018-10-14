@@ -333,13 +333,32 @@
                                                 </tbody>
                                                 </table>
                                             </div>
-
+                                            <p id="voucher-code-title">Enter Voucher Code</p>
                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-6" style="padding-right: 0;">
+                                                            <input type="text" id="voucher_code" name="voucher_code" class="form-control" placeholder="Enter code">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="button" id="apply_voucher" class="btn btn-primary" value="Apply">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 voucher-msg">
+                                                            <p class="invalid-feedback"></p>
+                                                            <p class="text-success"></p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <input type="submit" id="update_shopping_cart" value="Update Shopping Cart" class="btn pull-left btn-primary">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <input type="button" id="proceed_to_payment" value="Proceed to Payment" class="btn pull-right btn-primary">
                                                 </div>
@@ -351,7 +370,7 @@
                             </div>
                         </div>
                         {!! Form::open(['route' => 'checkout.postCheckout','id'=>'checkOutForm']) !!}
-                            <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
@@ -403,23 +422,23 @@
                                </span>
                             </th>
                             <td>
-                               <span class="amount">{!! $_cart->getSubTotal(true) !!}</span>
+                               <span class="sub-totol">{!! $_cart->getSubTotal(true) !!}</span>
                             </td>
                         </tr>
-                        <tr class="shipping">
-                            <th>
-                                <span>Shipping</span>
-                            </th>
-                            <td>
-                                <span class="shipping-free">Free</span>
-                            </td>
-                        </tr>
+                        {{--<tr class="shipping">--}}
+                            {{--<th>--}}
+                                {{--<span>Shipping</span>--}}
+                            {{--</th>--}}
+                            {{--<td>--}}
+                                {{--<span class="shipping-free">Free</span>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
                         <tr class="discount">
                             <th>
                                 <span>Discount</span>
                             </th>
                             <td>
-                                <span class="discount">{!! $_cart->getDiscount(true) !!}</span>
+                                <span class="discount-value">{!! $_cart->getDiscount() !!}</span>
                             </td>
                         </tr>
                         <tr class="tax">
@@ -427,7 +446,7 @@
                                 <span>Tax</span>
                             </th>
                             <td>
-                                <span class="tax">0</span>
+                                <span class="tax">{!! $_cart->getTax() !!}</span>
                             </td>
                         </tr>
                         <tr class="total">
@@ -435,10 +454,10 @@
                                 <span>Order Total</span>
                             </th>
                             <td>
-                                <span class="amount">{!! $_cart->grandTotal(true) !!}</span>
+                                <span class="total-amount-value">{!! $_cart->grandTotal(false,true) !!}</span>
                             </td>
                         </tr>
-                        </tbody>
+                      </tbody>
                     </table>
                 </div>
 

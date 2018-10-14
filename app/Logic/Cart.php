@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\CartItem;
 use App\Models\Cart as CartModel;
 use App\Models\Voucher;
+use function MongoDB\BSON\toJSON;
 
 class Cart
 {
@@ -134,6 +135,22 @@ class Cart
         return $grandTotal;
     }
 
+    public function getTax()
+    {
+        $cartItems = $this->getCart()->items()->get();
+        $total_tax_amt=0;
+        $total_tax_percentage=0;
+        foreach ($cartItems as $item) {
+            //use tax % instead hard code value 1
+            $total_tax_amt+= ($item->product->getFinalPrice() * 1)/100;
+            $total_tax_percentage+=1;
+        }
+
+        return array('tax_amt'=>$total_tax_amt,'tax_percentage'=>$total_tax_percentage);
+    }
+
+
+
     public function addVoucherToCart(Voucher $voucher, array $response)
     {
        return $this->getCart()->update(['voucher' => $voucher->code, 'discount' => $response['discount']]);
@@ -149,6 +166,9 @@ class Cart
 
         return $discount;
     }
+
+
+
 
     public function getVoucherCode()
     {

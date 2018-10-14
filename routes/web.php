@@ -80,6 +80,9 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::get('get-ccavenue', 'Checkout\CheckoutController@getCCAvenue')->name('get-ccavenue');
         Route::post('response-ccavenue', 'Checkout\CheckoutController@postResponseCCAvenue')->name('response-ccavenue');
 
+        //route for apply voucher
+        Route::get('apply-voucher','Checkout\CheckoutController@applyVoucher')->name('apply-voucher');
+
         //routes for Paytm Integration
         Route::get('get-paytm', 'Checkout\CheckoutController@getPayTm')->name('get-paytm');
         Route::post('response-paytm', 'Checkout\CheckoutController@postResponsePayTm')->name('response-paytm');
@@ -87,7 +90,7 @@ Route::group(['namespace' => 'Frontend'], function () {
         //route for send message notification
         Route::get('send-message', 'Checkout\CheckoutController@sendMessageNotification')->name('send-message');
         //route for send email notification
-        Route::get('send-email/{orderId}', 'Checkout\CheckoutController@sendEmailNotification')->name('send-email');
+        Route::get('send-email', 'Checkout\CheckoutController@sendEmailNotification')->name('send-email');
     });
 
 

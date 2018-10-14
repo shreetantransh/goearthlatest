@@ -5177,13 +5177,12 @@ input.payment_mode_radio {
     margin-top: 20px!important;
 }
 
-<<<<<<< HEAD
 .block-content ul li{
     line-height: 1.8;
 }
-=======
 .form-control.is-invalid{
     border: 1px solid red !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
 
 /*cart popup styles*/
@@ -5196,4 +5195,15 @@ span.shipping-free {
     color: #78b144;
     font-weight: 600;
 }
->>>>>>> 2d3680cf292a6592a701942a6b3fd0e323ab9cd2
+
+p#voucher-code-title {
+    margin-left: 15px;
+}
+
+p.text-success{
+    color: green;
+    font-size: 11px;
+    padding-top: 5px;
+    display: inline-block;
+}
+
