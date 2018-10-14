@@ -10,9 +10,13 @@
                         <ul class="menu">
 
                             <li class="dropdown item  has-sub">
+                                <a href="{{ url('/') }}">Home</a>
+                            </li>
+                            <li class="dropdown item  has-sub">
                                 <a href="product-grid-left-sidebar.html" title="Product">Category</a>
                                 <div class="dropdown-menu">
                                     <ul>
+
                                         @foreach($_categories as $category)
                                             <li class="has-image">
                                                 <img src="img/product/product-category-5.png"

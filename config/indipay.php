@@ -70,9 +70,4 @@ return [
         'checkout/response-ccavenue',
         'checkout/response-paytm'
     ],
-
-
-
-
-
 ];

@@ -73,6 +73,8 @@
                         <button data-delete-url="" id="delete" type="button" class="btn btn-danger btn-lg waves-effect">
                             DELETE
                         </button>
+                        <a class="btn btn-default btn-lg" href="{{ route('admin.cms.page.create') }}">Create New</a>
+
                     @endif
                 </div>
             </div>

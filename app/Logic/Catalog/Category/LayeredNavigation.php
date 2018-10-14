@@ -48,6 +48,13 @@ class LayeredNavigation
                         break;
                     }
 
+                    case Attribute::TYPE_DOUBLE: {
+                        if ($attribute->code == 'price') {
+                            $outputHtml .= view('catalog.category.layered.price', compact('attribute'));
+                            break;
+                        }
+                    }
+
                     default:
                 }
             }

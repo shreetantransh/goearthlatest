@@ -26,12 +26,14 @@
                             <div class="block-content">
                                 @foreach($categories as $_category)
                                     <div class="item">
-                                        <a class="category-title" href="{{ $_category->getUrl() }}">{{ $_category->getName() }}</a>
+                                        <a class="category-title"
+                                           href="{{ $_category->getUrl() }}">{{ $_category->getName() }}</a>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                @endif
+                    @endif
+
 
 
                 <!-- Block - Filter -->
@@ -40,20 +42,17 @@
 
                         <div class="block-content">
 
-                            <div class="filter-item">
-                                <h3 class="filter-title">By Price</h3>
-
-                                <div class="block-content">
-                                    <div id="slider-range" class="tiva-filter">
-                                        <div class="filter-item price-filter">
-                                            <div class="layout-slider">
-                                                <input id="price-filter" name="price" value="0;100"/>
-                                            </div>
-                                            <div class="layout-slider-settings"></div>
-                                        </div>
-                                    </div>
+                            @if(!empty($filterHtml))
+                                <div class="layered-navigation">
+                                    <form>
+                                        {!! $filterHtml !!}
+                                        <input type="hidden" name="sort_by" value="latest" id="sort_by">
+                                        <input type="hidden" name="q" value="{{ request('q') }}" id="q">
+                                    </form>
                                 </div>
-                            </div>
+                            @endif
+e
+
                         </div>
                     </div>
                 </div>

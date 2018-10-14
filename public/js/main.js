@@ -121,19 +121,20 @@
 			pauseOnHover: true
 		});
 	
-		// ===== Slider range ======
-		if ($("#price-filter").length) {
-			$("#price-filter").slider({
-				from: 0,
-				to: 100,
-				step: 1,
-				smooth: true,
-				round: 0,
-				dimension: "&nbsp;$",
-				skin: "plastic"
-			});
-		}
-		
+		// // ===== Slider range ======
+		// if ($("#price-filter").length) {
+		// 	$("#price-filter").slider({
+		// 		from: 0,
+		// 		to: 100,
+		// 		step: 1,
+		// 		smooth: true,
+		// 		round: 0,
+		// 		dimension: "&nbsp;",
+		// 		skin: "plastic"
+        //
+		// 	});
+		// }
+
 		// ==== Google Map ====
 		var address = jQuery('.contact-address').html();
 		var width = '100%';

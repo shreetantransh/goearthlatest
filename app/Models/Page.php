@@ -45,4 +45,9 @@ class Page extends Model
     {
         return ucwords($this->name);
     }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
 }
